@@ -14,13 +14,6 @@ struct Doctors: Decodable {
     var professionalID:String
     var location:String
     
-     /*
-    var profile_image:String {
-        set{}
-        get{
-            return "url de una imagen"
-        }
-    }
    
     init(dictionary: [String: Any]) {
         
@@ -28,5 +21,11 @@ struct Doctors: Decodable {
         self.specialism = dictionary["specialism"] as? String ?? ""
         self.professionalID = dictionary["professionalID"] as? String ?? ""
         self.location = dictionary["location"] as? String ?? ""
-    }*/
+    }
+    init(Name:String,Specialism:String,ProfessionalID:String,Location:String) {
+        self.name = Name
+        self.specialism = Specialism
+        self.professionalID = ProfessionalID
+        self.location = Location
+    }
 }

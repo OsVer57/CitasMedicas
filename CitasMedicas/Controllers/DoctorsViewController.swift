@@ -19,16 +19,16 @@ class DoctorsViewController: UIViewController {
         self.tblDoctors.delegate = self
         self.tblDoctors.dataSource = self
         self.tblDoctors.addSubview(refreshControl)
-        //self.downloadDoctors()
+        self.downloadDoctors()
 
         
-        let obj = Doctors(name: "Mariana Tenorio", specialism: "Pediatria", professionalID: "ASWQ1234", location: "Algún lugar")
+        let obj = Doctors(Name: "Mariana Tenorio", Specialism: "Pediatria", ProfessionalID: "ASWQ1234", Location: "Algún lugar")
         doctors.append(obj)
 
     }
     
     func downloadDoctors(){
-        findDoctors(callback: { listDoctors in
+        getDoctors(callback: { listDoctors in
             self.doctors = listDoctors
             DispatchQueue.main.async {
                 self.tblDoctors.reloadData()
@@ -49,7 +49,7 @@ class DoctorsViewController: UIViewController {
 
     @objc func refresh(){
         self.refreshControl.endRefreshing()
-        let obj = Doctors(name: "Pedro Díaz", specialism: "Cirujano", professionalID: "1223ASD", location: "Otro lugar")
+        let obj = Doctors(Name: "Pedro Díaz", Specialism: "Cirujano", ProfessionalID: "1223ASD", Location: "Otro lugar")
         doctors.append(obj)
         self.refreshTable()
     }

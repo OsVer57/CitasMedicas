@@ -141,10 +141,16 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
     task.resume()
 }
 
-
-func findDoctors (callback: @escaping ([Doctors]) -> () ){
-    /*
-    let url = URL (string: "\(baseUrl)doctors")!
+func getDoctors(callback: @escaping ([Doctors]) -> ()){
+    guard let url = URL(string: "\(baseUrl)doctors") else {return}
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    let params = ""
+    
+    guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
+    request.httpBody = httpBody
+    let session = URLSession.shared
     let task = session.dataTask(with: url) { data, response, error in
         guard error == nil else {
             print ("error: \(error)")
@@ -169,9 +175,7 @@ func findDoctors (callback: @escaping ([Doctors]) -> () ){
             print(error)
         }
         
-        
     }
     task.resume()
- */
 }
 
