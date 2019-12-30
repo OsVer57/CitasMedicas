@@ -180,7 +180,7 @@ class RegistryViewController: UIViewController {
         
         
         let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntity, identification: identification, email: email, password: encryptPassword(password: password), photoFront: convertImageToStringBase64(img: imageFront), photoBack: convertImageToStringBase64(img: imageBack))
-        //print(obj)
+        
         registryUser(user: obj, callback: { result, message in
             DispatchQueue.main.async {
                 if result{

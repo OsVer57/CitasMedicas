@@ -11,7 +11,7 @@ import Foundation
 struct User: Encodable {
     var name:String
     var firstLastName:String
-    var secondLastName:String?? 
+    var secondLastName:String?
     var birthday:String
     var birthEntity:String
     var identification:String
