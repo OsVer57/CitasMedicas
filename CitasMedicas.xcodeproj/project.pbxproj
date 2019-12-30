@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,9 +14,25 @@
 		5207AD1223A99F340003DE10 /* CitasMedicas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5207AD1023A99F340003DE10 /* CitasMedicas.xcdatamodeld */; };
 		5207AD1423A99F3B0003DE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5207AD1323A99F3B0003DE10 /* Assets.xcassets */; };
 		5207AD1723A99F3C0003DE10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5207AD1523A99F3C0003DE10 /* LaunchScreen.storyboard */; };
+		5222A35B23B67D45008E23DD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222A35A23B67D45008E23DD /* TabBarViewController.swift */; };
+		522EAD8923B25F52006A3B41 /* DoctorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8823B25F52006A3B41 /* DoctorsTableViewCell.swift */; };
+		522EAD8B23B2603E006A3B41 /* AppintmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8A23B2603E006A3B41 /* AppintmentsTableViewCell.swift */; };
+		522EAD8D23B264B6006A3B41 /* Doctors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8C23B264B6006A3B41 /* Doctors.swift */; };
+		522EAD8F23B2723B006A3B41 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8E23B2723B006A3B41 /* Appointment.swift */; };
+		522EAD9123B29606006A3B41 /* ServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD9023B29606006A3B41 /* ServicesAPI.swift */; };
+		52B985C623B17AF100E541CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985C523B17AF100E541CF /* User.swift */; };
+		52B985C923B1818000E541CF /* RegistryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985C823B1818000E541CF /* RegistryViewController.swift */; };
+		52B985CB23B1836100E541CF /* DoctorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985CA23B1836100E541CF /* DoctorsViewController.swift */; };
+		52B985CD23B183AC00E541CF /* MedicalAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985CC23B183AC00E541CF /* MedicalAppointmentsViewController.swift */; };
+		52B985CF23B1841500E541CF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985CE23B1841500E541CF /* UserProfileViewController.swift */; };
+		52B985D123B185AF00E541CF /* RecordAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985D023B185AF00E541CF /* RecordAppointmentViewController.swift */; };
+		52B985D323B18A3F00E541CF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B985D223B18A3F00E541CF /* Constants.swift */; };
+		6E63A7884D79040EBD004FDF /* Pods_CitasMedicas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6FB4BA330F87F8E3A03F49C /* Pods_CitasMedicas.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1588101A702D64CEFE7E2546 /* Pods-CitasMedicas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CitasMedicas.release.xcconfig"; path = "Target Support Files/Pods-CitasMedicas/Pods-CitasMedicas.release.xcconfig"; sourceTree = "<group>"; };
+		3E100FBFF2E2BDF94356582F /* Pods-CitasMedicas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CitasMedicas.debug.xcconfig"; path = "Target Support Files/Pods-CitasMedicas/Pods-CitasMedicas.debug.xcconfig"; sourceTree = "<group>"; };
 		5207AD0423A99F340003DE10 /* CitasMedicas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitasMedicas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5207AD0723A99F340003DE10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5207AD0923A99F340003DE10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +42,20 @@
 		5207AD1323A99F3B0003DE10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5207AD1623A99F3C0003DE10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5207AD1823A99F3C0003DE10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5222A35A23B67D45008E23DD /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		522EAD8823B25F52006A3B41 /* DoctorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsTableViewCell.swift; sourceTree = "<group>"; };
+		522EAD8A23B2603E006A3B41 /* AppintmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppintmentsTableViewCell.swift; sourceTree = "<group>"; };
+		522EAD8C23B264B6006A3B41 /* Doctors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctors.swift; sourceTree = "<group>"; };
+		522EAD8E23B2723B006A3B41 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
+		522EAD9023B29606006A3B41 /* ServicesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAPI.swift; sourceTree = "<group>"; };
+		52B985C523B17AF100E541CF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		52B985C823B1818000E541CF /* RegistryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistryViewController.swift; sourceTree = "<group>"; };
+		52B985CA23B1836100E541CF /* DoctorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsViewController.swift; sourceTree = "<group>"; };
+		52B985CC23B183AC00E541CF /* MedicalAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalAppointmentsViewController.swift; sourceTree = "<group>"; };
+		52B985CE23B1841500E541CF /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		52B985D023B185AF00E541CF /* RecordAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAppointmentViewController.swift; sourceTree = "<group>"; };
+		52B985D223B18A3F00E541CF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C6FB4BA330F87F8E3A03F49C /* Pods_CitasMedicas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CitasMedicas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E63A7884D79040EBD004FDF /* Pods_CitasMedicas.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +75,8 @@
 			children = (
 				5207AD0623A99F340003DE10 /* CitasMedicas */,
 				5207AD0523A99F340003DE10 /* Products */,
+				8D1B664BE504BEB5AECE6757 /* Pods */,
+				59D03277357E0C842A764BE3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +91,9 @@
 		5207AD0623A99F340003DE10 /* CitasMedicas */ = {
 			isa = PBXGroup;
 			children = (
+				52B985C723B17F3F00E541CF /* Resources */,
+				52B985C423B17A3F00E541CF /* Controllers */,
+				52B985C323B17A0100E541CF /* Models */,
 				5207AD0723A99F340003DE10 /* AppDelegate.swift */,
 				5207AD0923A99F340003DE10 /* SceneDelegate.swift */,
 				5207AD0B23A99F340003DE10 /* ViewController.swift */,
@@ -66,8 +102,59 @@
 				5207AD1523A99F3C0003DE10 /* LaunchScreen.storyboard */,
 				5207AD1823A99F3C0003DE10 /* Info.plist */,
 				5207AD1023A99F340003DE10 /* CitasMedicas.xcdatamodeld */,
+				522EAD8823B25F52006A3B41 /* DoctorsTableViewCell.swift */,
+				522EAD8A23B2603E006A3B41 /* AppintmentsTableViewCell.swift */,
+				522EAD9023B29606006A3B41 /* ServicesAPI.swift */,
 			);
 			path = CitasMedicas;
+			sourceTree = "<group>";
+		};
+		52B985C323B17A0100E541CF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				52B985C523B17AF100E541CF /* User.swift */,
+				522EAD8C23B264B6006A3B41 /* Doctors.swift */,
+				522EAD8E23B2723B006A3B41 /* Appointment.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		52B985C423B17A3F00E541CF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				52B985C823B1818000E541CF /* RegistryViewController.swift */,
+				52B985CA23B1836100E541CF /* DoctorsViewController.swift */,
+				52B985CC23B183AC00E541CF /* MedicalAppointmentsViewController.swift */,
+				52B985CE23B1841500E541CF /* UserProfileViewController.swift */,
+				52B985D023B185AF00E541CF /* RecordAppointmentViewController.swift */,
+				5222A35A23B67D45008E23DD /* TabBarViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		52B985C723B17F3F00E541CF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52B985D223B18A3F00E541CF /* Constants.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		59D03277357E0C842A764BE3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C6FB4BA330F87F8E3A03F49C /* Pods_CitasMedicas.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8D1B664BE504BEB5AECE6757 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3E100FBFF2E2BDF94356582F /* Pods-CitasMedicas.debug.xcconfig */,
+				1588101A702D64CEFE7E2546 /* Pods-CitasMedicas.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +164,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5207AD1B23A99F3C0003DE10 /* Build configuration list for PBXNativeTarget "CitasMedicas" */;
 			buildPhases = (
+				AA3C39622D2FC1949213D41D /* [CP] Check Pods Manifest.lock */,
 				5207AD0023A99F340003DE10 /* Sources */,
 				5207AD0123A99F340003DE10 /* Frameworks */,
 				5207AD0223A99F340003DE10 /* Resources */,
+				649CD5A2120CE4CFD0DF2553 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,15 +225,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		649CD5A2120CE4CFD0DF2553 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CitasMedicas/Pods-CitasMedicas-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CitasMedicas/Pods-CitasMedicas-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CitasMedicas/Pods-CitasMedicas-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA3C39622D2FC1949213D41D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CitasMedicas-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5207AD0023A99F340003DE10 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5207AD0C23A99F340003DE10 /* ViewController.swift in Sources */,
+				52B985D323B18A3F00E541CF /* Constants.swift in Sources */,
+				522EAD8923B25F52006A3B41 /* DoctorsTableViewCell.swift in Sources */,
+				522EAD8B23B2603E006A3B41 /* AppintmentsTableViewCell.swift in Sources */,
+				5222A35B23B67D45008E23DD /* TabBarViewController.swift in Sources */,
 				5207AD0823A99F340003DE10 /* AppDelegate.swift in Sources */,
+				52B985CD23B183AC00E541CF /* MedicalAppointmentsViewController.swift in Sources */,
 				5207AD0A23A99F340003DE10 /* SceneDelegate.swift in Sources */,
+				522EAD9123B29606006A3B41 /* ServicesAPI.swift in Sources */,
+				52B985CB23B1836100E541CF /* DoctorsViewController.swift in Sources */,
+				52B985D123B185AF00E541CF /* RecordAppointmentViewController.swift in Sources */,
+				522EAD8D23B264B6006A3B41 /* Doctors.swift in Sources */,
+				522EAD8F23B2723B006A3B41 /* Appointment.swift in Sources */,
+				52B985C623B17AF100E541CF /* User.swift in Sources */,
 				5207AD1223A99F340003DE10 /* CitasMedicas.xcdatamodeld in Sources */,
+				52B985CF23B1841500E541CF /* UserProfileViewController.swift in Sources */,
+				52B985C923B1818000E541CF /* RegistryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +430,7 @@
 		};
 		5207AD1C23A99F3C0003DE10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E100FBFF2E2BDF94356582F /* Pods-CitasMedicas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -303,6 +448,7 @@
 		};
 		5207AD1D23A99F3C0003DE10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1588101A702D64CEFE7E2546 /* Pods-CitasMedicas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
