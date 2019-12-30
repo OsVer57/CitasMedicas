@@ -26,21 +26,23 @@ class ViewController: UIViewController {
     var strAlertMessage = String()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        self.btnLogin.roundButton()
+    super.viewDidLoad()
+    self.btnLogin.roundButton()
+    
+        //Verificación de sistemas biometricos en el dispositivo
         
         if (context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)){
             
             switch context.biometryType {
             case .faceID:
                 btnBiometric.setImage(UIImage(named: "faceID"), for: UIControl.State.normal)
-                self.strAlertMessage = "Desea Identificarse con Face ID"
-                self.lblBiometric.text = "Pulsa para autentificarte con Face ID"
+                self.strAlertMessage = "Desea Identificarse con Face ID."
+                self.lblBiometric.text = "Pulsa para autentificarte con Face ID."
                 break
             case .touchID:
                 btnBiometric.setImage(UIImage(named: "fingerID"), for: UIControl.State.normal)
-                self.strAlertMessage = "Desea Identificarse con Touch ID"
-                self.lblBiometric.text = "Pulsa para autentificarte con Touch ID"
+                self.strAlertMessage = "Desea Identificarse con Touch ID."
+                self.lblBiometric.text = "Pulsa para autentificarte con Touch ID."
                 
                 break
             case .none:
@@ -58,6 +60,7 @@ class ViewController: UIViewController {
         
     }
     
+    //Función de verificación de Errores originados en la autentificación biometrica
     func errorMessage(errorCode: Int) -> String {
         var strMessage = ""
         switch errorCode {
@@ -92,6 +95,8 @@ class ViewController: UIViewController {
         return strMessage
     }
     
+    
+    //Función para la creación de alerta de Errores originados en la autentificación biometrica
     func notifiUser(_ msg:String , err:String?){
         let alert = UIAlertController(title: msg, message: err, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -99,6 +104,7 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    //Función para validar campos te texto vacios
     func validateEmpty() {
         guard let email = txtEmail.text, email != "",
             let password = txtPassword.text, password != "" else {
@@ -106,14 +112,13 @@ class ViewController: UIViewController {
             return
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SegueRegistro"{
-            let controller = segue.destination 
-        }
-    }
+    
+    //Función de botón
     @IBAction func login(_ sender: Any) {
-        
+        //Validación de campos vacios
         self.validateEmpty()
+        
+        //Validadción de campos de texto validos mediante RegEx
         guard let email = txtEmail.text, email.validEmail else {
             self.createAlert(title: "ERROR", message: "El correo electronico no puede ser de longitud mayor a 100 y debe contener @ y un dominio seguido de .com  ej. correo@mail.com", messageBtn: "OK")
             return
@@ -123,12 +128,12 @@ class ViewController: UIViewController {
             return
         }
         
+        //Se ejecuta función para consumo de servicio
         loginUser(email:email, pass:password, callback: { result, message in
-            
             DispatchQueue.main.async {
                 if result{
                         let story = UIStoryboard(name: "Main", bundle: nil)
-                        let controlador = story.instantiateViewController(identifier: "Doctors")
+                        let controlador = story.instantiateViewController(identifier: "TabBar")
                         self.present(controlador,animated: true, completion: nil)
                 } else {
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")
@@ -139,6 +144,7 @@ class ViewController: UIViewController {
         
     }
     
+    //Función para destapar contenido del campo contraseña
     @IBAction func showPassword(_ sender: UIButton) {
         if (txtPassword.isSecureTextEntry){
             sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
@@ -149,8 +155,8 @@ class ViewController: UIViewController {
         }
     }
     
+    //Función para autentificar al usuario mediante sistema biometrico
     @IBAction func identificar(_ sender: Any) {
-        
         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: self.strAlertMessage, reply: { [unowned self] (success, error) -> Void in
             DispatchQueue.main.async {
                 if (success){
