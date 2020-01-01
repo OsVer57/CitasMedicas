@@ -41,7 +41,7 @@ class RegistryViewController: UIViewController {
     
     var identification:String?
     var dateFormatter = DateFormatter()
-    var birthEntitypick:String?
+    var birthEntitypick:String = ""
     var activeField: UITextField?
     
     
@@ -50,15 +50,17 @@ class RegistryViewController: UIViewController {
         self.hideKeyboard()
         self.registerForKeyboardNotification()
         
+        self.birthEntitypick = Constants.Strings.BIRTH_ENTITY[0]
         self.pickEntity.delegate = self
         self.pickEntity.dataSource = self
         
         self.image.delegate = self
+        self.imgFront.image?.accessibilityIdentifier = "defaultIdentificacion"
+        self.imgBack.image?.accessibilityIdentifier = "defaultIdentificacion"
         
         self.btnRegistry.roundButton()
         
     }
-    
     func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -89,16 +91,40 @@ class RegistryViewController: UIViewController {
     
     
     func validateEmpty() {
-        guard let name = txtName.text, name != "",
-            let firstLastName = txtFirstLastName.text, firstLastName != "",
-            let secondLastName = txtSecondLastName.text, secondLastName != "",
-            let email = txtEmail.text, email != "",
-            let password = txtPassword.text, password != "" else {
-            self.createAlert(title: "ERROR", message: "Los campos no pueden estar vacios.", messageBtn: "OK")
+        guard let name = txtName.text, name != "" else {
+            self.createAlert(title: "ERROR", message: "El nombre no puede estar vacio.", messageBtn: "OK")
+            return
+        }
+        guard let firstLastName = txtFirstLastName.text, firstLastName != "" else {
+            self.createAlert(title: "ERROR", message: "El apellido paterno no puede estar vacio.", messageBtn: "OK")
+            return
+        }
+        guard let email = txtEmail.text, email != "" else {
+            self.createAlert(title: "ERROR", message: "El correo electrónico no puede estar vacio.", messageBtn: "OK")
+            return
+        }
+        guard let password = txtPassword.text, password != "" else {
+            self.createAlert(title: "ERROR", message: "La contraseña no puede estar vacia.", messageBtn: "OK")
+            return
+        }
+        guard let password2 = txtPassword2.text, password2 != "" else {
+            self.createAlert(title: "ERROR", message: "La confirmación de contraseña no puede estar vacia.", messageBtn: "OK")
             return
         }
         guard let identification = sgmIdentification, identification.selectedSegmentIndex != -1 else {
             self.createAlert(title: "ERROR", message: "Debes seleccionar un tipo de identificación.", messageBtn: "OK")
+            return
+        }
+        guard let photoFront = imgFront.image, photoFront.accessibilityIdentifier != "defaultIdentificacion" else {
+            self.createAlert(title: "ERROR", message: "Debes agregar una foto frontal de tu identificación.", messageBtn: "OK")
+            return
+        }
+        guard let photoBack = imgBack.image, photoBack.accessibilityIdentifier != "defaultIdentificacion" else {
+            self.createAlert(title: "ERROR", message: "Debes agregar una foto trasera de tu identificación.", messageBtn: "OK")
+            return
+        }
+        guard birthEntitypick != "" else {
+            self.createAlert(title: "ERROR", message: "Debes seleccionar una entidad de nacimineto.", messageBtn: "OK")
             return
         }
     }
@@ -148,11 +174,11 @@ class RegistryViewController: UIViewController {
             return
         }
         guard let firstLastName = txtFirstLastName.text, firstLastName.validText else {
-            self.createAlert(title: "ERROR", message: "El apellido no puede contener caracteres especiales y debe tener una longitud de entre 3 y 50 caracteres.", messageBtn: "OK")
+            self.createAlert(title: "ERROR", message: "El apellido paterno no puede contener caracteres especiales y debe tener una longitud de entre 3 y 50 caracteres.", messageBtn: "OK")
             return
         }
-        guard let secondLastName = txtSecondLastName.text, secondLastName.validText else {
-            self.createAlert(title: "ERROR", message: "El apellido no puede contener caracteres especiales y debe tener una longitud de entre 3 y 50 caracteres.", messageBtn: "OK")
+        guard let secondLastName = txtSecondLastName.text, secondLastName.validOptionalText else {
+            self.createAlert(title: "ERROR", message: "El apellido materno no puede contener caracteres especiales y debe tener una longitud máxima de 50 caracteres.", messageBtn: "OK")
             return
         }
         guard let email = txtEmail.text, email.validEmail else {
@@ -165,23 +191,21 @@ class RegistryViewController: UIViewController {
             return
         }
         guard let password2 = txtPassword2.text, password2.validPassword else {
-            self.createAlert(title: "ERROR", message: "La contraseña debe tener una longitud de entre 8 y 50 caracteres.", messageBtn: "OK")
+            self.createAlert(title: "ERROR", message: "La confirmación de contraseña debe tener una longitud de entre 8 y 50 caracteres.", messageBtn: "OK")
             return
         }
         guard password == password2 else {
             self.createAlert(title: "ERROR", message: "Las contraseñas deben coincidir.", messageBtn: "OK")
             return
         }
-        guard let birthEntity = birthEntitypick else{ return }
         guard let identification = identification else { return }
         guard let imageFront = imgFront.image else { return }
         guard let imageBack = imgBack.image else { return }
         
         
-        
-        let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntity, identification: identification, email: email, password: encryptPassword(password: password), photoFront: convertImageToStringBase64(img: imageFront), photoBack: convertImageToStringBase64(img: imageBack))
-        
-        registryUser(user: obj, callback: { result, message in
+        let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntitypick, identification: identification, email: email, password: self.encryptPassword(password: password), photoFront: self.convertImageToStringBase64(img: imageFront), photoBack: self.convertImageToStringBase64(img: imageBack))
+        //print(obj)
+        /*registryUser(user: obj, callback: { result, message in
             DispatchQueue.main.async {
                 if result{
                     let alert = UIAlertController(title: "Usuario registrado", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
@@ -197,7 +221,7 @@ class RegistryViewController: UIViewController {
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")
                 }
             }
-        })
+        })*/
     }
     
     @IBAction func takePhoto1(_ sender: Any) {
@@ -253,31 +277,16 @@ class RegistryViewController: UIViewController {
          if let imagenSeleccionada: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             if bandera {
                 imgBack.image = imagenSeleccionada
+                imgBack.image?.accessibilityIdentifier = "photoBack"
             }else if bandera == false {
                 imgFront.image = imagenSeleccionada
+                imgFront.image?.accessibilityIdentifier = "photoFront"
             }
              if image.sourceType == .camera {
                  UIImageWriteToSavedPhotosAlbum(imagenSeleccionada, nil,nil,nil)
              }
          }
         image.dismiss(animated: true, completion: nil)
-    }
-    func convertImageToStringBase64 (img: UIImage) -> String {
-        return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
-    }
-    
-    func convertStringBase64ToImage (imageString:String) -> UIImage{
-        let imageData = Data.init(base64Encoded: imageString, options: .init(rawValue: 0))
-        let image = UIImage(data: imageData!)
-        return image!
-    }
-    
-    func encryptPassword(password:String) -> String {
-        let inputData = Data(password.utf8)
-        let hashed = SHA256.hash(data: inputData)
-        return hashed.compactMap {
-            String(format: "%02x",$0)
-        }.joined()
     }
     
 }
@@ -298,6 +307,5 @@ extension RegistryViewController: UIPickerViewDelegate, UIPickerViewDataSource, 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.birthEntitypick = Constants.Strings.BIRTH_ENTITY[row] as String
     }
-    
     
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import LocalAuthentication
+import CryptoKit
 
 class ViewController: UIViewController {
     
@@ -58,6 +59,15 @@ class ViewController: UIViewController {
             }
         }
         
+    }
+    
+    //Función encriptar password
+    func encryptPassword(password:String) -> String {
+        let inputData = Data(password.utf8)
+        let hashed = SHA256.hash(data: inputData)
+        return hashed.compactMap {
+            String(format: "%02x",$0)
+        }.joined()
     }
     
     //Función de verificación de Errores originados en la autentificación biometrica
@@ -129,7 +139,7 @@ class ViewController: UIViewController {
         }
         
         //Se ejecuta función para consumo de servicio
-        loginUser(email:email, pass:password, callback: { result, message in
+        loginUser(email:email, pass:encryptPassword(password: password), callback: { result, message in
             DispatchQueue.main.async {
                 if result{
                         let story = UIStoryboard(name: "Main", bundle: nil)

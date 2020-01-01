@@ -8,7 +8,7 @@
 
 import Foundation
 
-let baseUrl:String = "http://10.95.71.35:8080/agendaMedica/"
+let baseUrl:String = "http://10.95.71.10:8086/agendaMedica/"
 let urlPruebaLogin = "http://www.maggrupo.com/users/wsLogin"
 let urlPruebaRegistro = "http://www.maggrupo.com/users/wsadd"
 var config = URLSessionConfiguration.default
@@ -16,7 +16,8 @@ let session = URLSession(configuration: config)
 
 
 func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
-    guard let url = URL(string: "\(baseUrl)registry") else { return }
+    guard let url = URL(string: "\(baseUrl)registry") else { print("no se puede entrar a la url")
+        return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -29,8 +30,8 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
         "birthday":"\(user.birthday)",
         "birthEntity":"\(user.birthEntity)",
         "identification":"\(user.identification)",
-        "userphotoFront": "front",
-        "userphotoBack": "back"]
+        "userphotoFront": "\(user.photoFront)",
+        "userphotoBack": "\(user.photoBack)"]
 
     //let params = ["username":"osver57@gmail.com","nombre":"Oscar","apellidos":"Vera Ortiz","password":"1holagg1","cumple":"25/12/1994","genero":"1","busca":"2","perfil":"1"]
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
@@ -63,7 +64,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
         print("Registro User -> \(json)")
         
         
-        guard let operationCode = json["operationCode"] as? Int else {
+        guard let operationCode = json["operationCode"] as? String else {
             callback(false, "Operation code no recuperable")
             return
             
@@ -73,7 +74,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
             return
             
         }
-        if operationCode == 1 {
+        if operationCode == "1" {
             callback(true, message)
             print("Exito en la operación")
             
@@ -94,8 +95,8 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
     guard let url = URL(string: "\(baseUrl)login") else {return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    let params:[String:String] = ["username":"\(email)",
+    request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+    let params:[String:String] = ["email":"\(email)",
         "password":"\(pass)"]
     
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
@@ -125,13 +126,13 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
             return
         }
         
-        print("Login User -> \(json)")
+        print("Login User -> \(json["operationCode"])")
         
-        guard let operationCode = json["operationCode"] as? Int else {
+        guard let operationCode = json["operationCode"] as? String else {
             return
         }
         guard let message = json["message"] as? String else { return }
-        if operationCode == 1 {
+        if operationCode == "1" {
             callback(true, message)
             print("Exito")
             
@@ -140,10 +141,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
             callback(false, message)
             print("Error")
         }
-        
-        
     }
-
     task.resume()
 }
 
@@ -179,8 +177,6 @@ func getDoctors(callback: @escaping ([Doctors]) -> ()){
         }catch let error as NSError {
             print(error)
         }
-        
     }
     task.resume()
 }
-

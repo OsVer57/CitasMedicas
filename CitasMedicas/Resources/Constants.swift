@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import CryptoKit
 
 struct Constants {
     
     struct Colors {
-        static let defaultColor = UIColor(red: 64/255, green: 224/255, blue: 208/255, alpha: 1)
+        static let defaultColor = UIColor(red: 79/255, green: 195/255, blue: 247/255, alpha: 1)
     }
     struct Strings {
         static let URL_BASE:String = "una url"
@@ -59,12 +60,18 @@ extension String {
         return emailTest.evaluate(with:self)
     }
     var validPassword:Bool{
-        let passwordRegex = "[A-Za-z0-9\\._%+-]{8,50}"
+        let passwordRegex = "[A-Za-z0-9\\!$%&/()=?¿¡+*ç,;.:-_{}]{8,50}"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         return passwordTest.evaluate(with: self)
     }
     var validText:Bool{
-        let textRegex = "([A-ZÑÁÉÍÓÚÜ\\Sa-zñáéíóúü\\S]{3,50})"
+        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{3,50}[\\S])"
+        let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
+        return textTest.evaluate(with: self)
+        
+    }
+    var validOptionalText:Bool{
+        let textRegex = "([A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{0,50})"
         let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
         return textTest.evaluate(with: self)
         
@@ -104,6 +111,23 @@ extension UIViewController{
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func convertImageToStringBase64 (img: UIImage) -> String {
+        return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
+    }
+    
+    func convertStringBase64ToImage (imageString:String) -> UIImage{
+        let imageData = Data.init(base64Encoded: imageString, options: .init(rawValue: 0))
+        let image = UIImage(data: imageData!)
+        return image!
+    }
+    func encryptPassword(password:String) -> String {
+        let inputData = Data(password.utf8)
+        let hashed = SHA256.hash(data: inputData)
+        return hashed.compactMap {
+            String(format: "%02x",$0)
+        }.joined()
     }
     
 }
