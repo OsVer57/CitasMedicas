@@ -8,7 +8,6 @@
 
 import UIKit
 import LocalAuthentication
-import CryptoKit
 
 class ViewController: UIViewController {
     
@@ -60,16 +59,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
-    //Función encriptar password
-    func encryptPassword(password:String) -> String {
-        let inputData = Data(password.utf8)
-        let hashed = SHA256.hash(data: inputData)
-        return hashed.compactMap {
-            String(format: "%02x",$0)
-        }.joined()
-    }
-    
     //Función de verificación de Errores originados en la autentificación biometrica
     func errorMessage(errorCode: Int) -> String {
         var strMessage = ""
@@ -128,7 +117,7 @@ class ViewController: UIViewController {
         //Validación de campos vacios
         self.validateEmpty()
         
-        //Validadción de campos de texto validos mediante RegEx
+        //Validación de campos de texto validos mediante RegEx
         guard let email = txtEmail.text, email.validEmail else {
             self.createAlert(title: "ERROR", message: "El correo electronico no puede ser de longitud mayor a 100 y debe contener @ y un dominio seguido de .com  ej. correo@mail.com", messageBtn: "OK")
             return
@@ -137,9 +126,8 @@ class ViewController: UIViewController {
             self.createAlert(title: "ERROR", message: "La contraseña debe tener una longitud de entre 8 y 50 caracteres", messageBtn: "OK")
             return
         }
-        
         //Se ejecuta función para consumo de servicio
-        loginUser(email:email, pass:encryptPassword(password: password), callback: { result, message in
+        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message in
             DispatchQueue.main.async {
                 if result{
                         let story = UIStoryboard(name: "Main", bundle: nil)
@@ -154,7 +142,7 @@ class ViewController: UIViewController {
         
     }
     
-    //Función para destapar contenido del campo contraseña
+    //Función para mostrar contenido del campo contraseña
     @IBAction func showPassword(_ sender: UIButton) {
         if (txtPassword.isSecureTextEntry){
             sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
