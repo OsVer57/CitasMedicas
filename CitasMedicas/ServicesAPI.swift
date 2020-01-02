@@ -8,9 +8,11 @@
 
 import Foundation
 
-let baseUrl:String = "http://10.95.71.10:8086/agendaMedica/"
+let baseUrl:String = "http://10.95.71.11:8090/agendaMedica/"
 let urlPruebaLogin = "http://www.maggrupo.com/users/wsLogin"
 let urlPruebaRegistro = "http://www.maggrupo.com/users/wsadd"
+let urlPruebaRegistroImagen = "http://www.maggrupoempresarial.com/mygalery/insertarimg.php"
+
 var config = URLSessionConfiguration.default
 let session = URLSession(configuration: config)
 
@@ -32,8 +34,10 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
         "identification":"\(user.identification)",
         "userphotoFront": "\(user.photoFront)",
         "userphotoBack": "\(user.photoBack)"]
-
-    //let params = ["username":"osver57@gmail.com","nombre":"Oscar","apellidos":"Vera Ortiz","password":"1holagg1","cumple":"25/12/1994","genero":"1","busca":"2","perfil":"1"]
+ 
+    //let params[String:String] = ["username":"osver57@gmail.com","nombre":"Oscar","apellidos":"Vera Ortiz","password":"1holagg1","cumple":"25/12/1994","genero":"1","busca":"2","perfil":"1"]
+    
+    //let params:[String:String] = ["nombre": "\(user.name)", "images": "\(user.name)", "imagebase": "\(user.photoFront)"]
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
     request.httpBody = httpBody
     let session = URLSession.shared
@@ -44,7 +48,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
             
             return
         }
-        
+                
         guard let content = data else {
             
             print("No data")
@@ -55,6 +59,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
         if let datos = String(data: content, encoding: .utf8) {
             print(datos)
         }
+        
         guard let json = (try? JSONSerialization.jsonObject(with: content, options: .mutableContainers)) as? [String : Any] else {
             callback(false, "Error JSON Type")
             print("Error JSON Type")
@@ -129,17 +134,23 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
         print("Login User -> \(json["operationCode"])")
         
         guard let operationCode = json["operationCode"] as? String else {
+            callback(false, "Operation code no recuperable")
             return
+            
         }
-        guard let message = json["message"] as? String else { return }
+        guard let message = json["message"] as? String else {
+            callback(false, "Mensaje de respuesta no recuperable")
+            return
+            
+        }
         if operationCode == "1" {
             callback(true, message)
-            print("Exito")
+            print("Exito en la operación")
             
         }
         else {
             callback(false, message)
-            print("Error")
+            print("Error operation code != 1")
         }
     }
     task.resume()

@@ -173,7 +173,7 @@ class RegistryViewController: UIViewController {
             return
         }
         guard let firstLastName = txtFirstLastName.text, firstLastName.validText else {
-            self.createAlert(title: "ERROR", message: "El apellido paterno no puede contener caracteres especiales y debe tener una longitud de entre 3 y 50 caracteres.", messageBtn: "OK")
+            self.createAlert(title: "ERROR", message: "El apellido paterno no puede contener caracteres especiales y debe tener una longitud de entre 3 y dsa50 caracteres.", messageBtn: "OK")
             return
         }
         guard let secondLastName = txtSecondLastName.text, secondLastName.validOptionalText else {
@@ -201,10 +201,13 @@ class RegistryViewController: UIViewController {
         guard let imageFront = imgFront.image else { return }
         guard let imageBack = imgBack.image else { return }
         
+        let resizeImageFront = self.resize(imageFront)
+        let resizeImageBack = self.resize(imageBack)
+
         
-        let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntitypick, identification: identification, email: email, password: self.encryptPassword(password: password), photoFront: self.convertImageToStringBase64(img: imageFront), photoBack: self.convertImageToStringBase64(img: imageBack))
+        let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntitypick, identification: identification, email: email, password: self.encryptPassword(password: password), photoFront: self.convertImageToStringBase64(img: resizeImageFront), photoBack: self.convertImageToStringBase64(img: resizeImageBack))
         //print(obj)
-        /*registryUser(user: obj, callback: { result, message in
+        registryUser(user: obj, callback: { result, message in
             DispatchQueue.main.async {
                 if result{
                     let alert = UIAlertController(title: "Usuario registrado", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
@@ -220,7 +223,7 @@ class RegistryViewController: UIViewController {
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")
                 }
             }
-        })*/
+        })
     }
     
     @IBAction func takePhoto1(_ sender: Any) {

@@ -127,12 +127,12 @@ class ViewController: UIViewController {
             return
         }
         //Se ejecuta función para consumo de servicio
-        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message in
+        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message in 
             DispatchQueue.main.async {
                 if result{
-                        let story = UIStoryboard(name: "Main", bundle: nil)
-                        let controlador = story.instantiateViewController(identifier: "TabBar")
-                        self.present(controlador,animated: true, completion: nil)
+                    let story = UIStoryboard(name: "Main", bundle: nil)
+                    let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
+                    self.present(controlador,animated: true, completion: nil)
                 } else {
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")
                 }

@@ -70,7 +70,7 @@ extension String {
         return passwordTest.evaluate(with: self)
     }
     var validText:Bool{
-        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{3,50}[\\S])"
+        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{3,50})"
         let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
         return textTest.evaluate(with: self)
         
@@ -146,5 +146,25 @@ extension UIViewController{
             String(format: "%02x",$0)
         }.joined()
     }
+    
+    func resize (_ image:UIImage) -> UIImage {
+        let ancho:CGFloat = image.size.width
+        let alto:CGFloat = image.size.height
+        let imgRelacion:CGFloat = ancho/alto
+        let maximoAncho:CGFloat = 640
+        let nuevoAlto:CGFloat = maximoAncho/imgRelacion
+        let constanteCompresion:CGFloat = 0.5
+        
+        let rect: CGRect = CGRect(x: 0, y: 0, width: maximoAncho, height: nuevoAlto)
+        UIGraphicsBeginImageContext(rect.size)
+        image.draw(in: rect)
+        
+        let img:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let imgData: Data = img.jpegData(compressionQuality: constanteCompresion)!
+        UIGraphicsEndImageContext()
+        
+        return UIImage(data: imgData)!
+    }
+
     
 }
