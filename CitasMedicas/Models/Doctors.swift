@@ -17,10 +17,10 @@ struct Doctors: Decodable {
    
     init(dictionary: [String: Any]) {
         
-        self.name = dictionary["name"] as? String ?? ""
-        self.specialism = dictionary["specialism"] as? String ?? ""
-        self.professionalID = dictionary["professionalID"] as? String ?? ""
-        self.location = dictionary["location"] as? String ?? ""
+        self.name = dictionary["nombreCompleto"] as? String ?? ""
+        self.specialism = dictionary["especialidad"] as? String ?? ""
+        self.professionalID = dictionary["cedula"] as? String ?? ""
+        self.location = dictionary["ubicacion"] as? String ?? ""
     }
     init(Name:String,Specialism:String,ProfessionalID:String,Location:String) {
         self.name = Name

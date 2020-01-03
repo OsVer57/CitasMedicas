@@ -157,15 +157,15 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
 }
 
 func getDoctors(callback: @escaping ([Doctors]) -> ()){
-    guard let url = URL(string: "\(baseUrl)doctors") else {return}
+    guard let url = URL(string: "http://10.95.71.11:8090/agendaMedica/selection") else {return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    let params:[String:String] = ["":""]
+    let params:[String:String] = [:]
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
     request.httpBody = httpBody
     let session = URLSession.shared
-    let task = session.dataTask(with: url) { data, response, error in
+    let task = session.dataTask(with: request) { data, response, error in
         guard error == nil else {
             print ("error: \(error)")
             return
@@ -174,20 +174,20 @@ func getDoctors(callback: @escaping ([Doctors]) -> ()){
             print("no data")
             return
         }
-        do {
-            if let jsonArray = try JSONSerialization.jsonObject(with: content, options: .allowFragments) as? [Dictionary<String,Any>]
-            {
-                var result = [Doctors]()
-                for doctor in jsonArray {
-                    result.append(Doctors(dictionary: doctor))
-                }
-                callback(result)
-            }else {
-                print ("bad json")
-            }
-        }catch let error as NSError {
-            print(error)
+        if let datos = String(data: content, encoding: .utf8) {
+            print(datos)
         }
+        
+        guard let json = (try? JSONSerialization.jsonObject(with: content, options: .mutableContainers)) as? [String : Any] else {
+            print("Error JSON Type")
+            return
+        }
+        var result = [Doctors]()
+        for doctor in (json["doctorList"] as? [Dictionary<String,Any>])! {
+            result.append(Doctors(dictionary: doctor))
+        }
+        callback(result)
+                
     }
     task.resume()
 }

@@ -26,8 +26,9 @@ class ViewController: UIViewController {
     var strAlertMessage = String()
     
     override func viewDidLoad() {
-    super.viewDidLoad()
-    self.btnLogin.roundButton()
+        super.viewDidLoad()
+        self.hideKeyboard()
+        self.btnLogin.roundButton()
     
         //Verificación de sistemas biometricos en el dispositivo
         
