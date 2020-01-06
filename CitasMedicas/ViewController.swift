@@ -128,8 +128,10 @@ class ViewController: UIViewController {
             return
         }
         //Se ejecuta función para consumo de servicio
-        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message in 
+        self.showActivityIndicatory(uiView: self.view)
+        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message in
             DispatchQueue.main.async {
+                self.hideActivityIndicator(uiView: self.view)
                 if result{
                     let story = UIStoryboard(name: "Main", bundle: nil)
                     let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController

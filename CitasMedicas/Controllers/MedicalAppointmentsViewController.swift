@@ -46,8 +46,6 @@ class MedicalAppointmentsViewController: UIViewController {
         }
         
     }
-
-    
     
 }
 

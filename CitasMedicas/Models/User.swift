@@ -20,5 +20,4 @@ struct User: Encodable {
     var photoFront:String
     var photoBack:String
     
-    
 }

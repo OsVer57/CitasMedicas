@@ -28,9 +28,11 @@ class DoctorsViewController: UIViewController {
     }
     
     func downloadDoctors(){
+        self.showActivityIndicatory(uiView: self.view)
         getDoctors(callback: { listDoctors in
             self.doctors = listDoctors
             DispatchQueue.main.async {
+                self.hideActivityIndicator(uiView: self.view)
                 self.tblDoctors.reloadData()
             }
         })

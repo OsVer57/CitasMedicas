@@ -16,9 +16,9 @@ let urlPruebaRegistroImagen = "http://www.maggrupoempresarial.com/mygalery/inser
 var config = URLSessionConfiguration.default
 let session = URLSession(configuration: config)
 
-
+// Registrar un nuevo usuario
 func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
-    guard let url = URL(string: "\(baseUrl)registry") else { print("no se puede entrar a la url")
+    guard let url = URL(string: "\(baseUrl)registry") else { print("no se puede acceder al endpoint")
         return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -96,8 +96,11 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
     task.resume()
 }
 
+
+// Inicio de sesión
 func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> ()){
-    guard let url = URL(string: "\(baseUrl)login") else {return}
+    guard let url = URL(string: "\(baseUrl)login") else { print("no se puede acceder al endpoint")
+        return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -156,8 +159,11 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String) -> (
     task.resume()
 }
 
+
+// Obtener listado de doctores
 func getDoctors(callback: @escaping ([Doctors]) -> ()){
-    guard let url = URL(string: "http://10.95.71.11:8090/agendaMedica/selection") else {return}
+    guard let url = URL(string: "\(baseUrl)selection") else { print("no se puede entrar a la url")
+        return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")

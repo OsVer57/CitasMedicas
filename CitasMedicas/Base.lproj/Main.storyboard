@@ -164,7 +164,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="tTk-fb-CJg">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doctor" translatesAutoresizingMaskIntoConstraints="NO" id="tTk-fb-CJg">
                                                     <rect key="frame" x="15" y="11.5" width="72" height="72"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="72" id="efw-9y-M4c"/>
@@ -223,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qe2-Fx-ULC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="788" y="900"/>
+            <point key="canvasLocation" x="694" y="1069"/>
         </scene>
         <!--Mis Citas-->
         <scene sceneID="JQI-SK-xTP">
@@ -652,7 +652,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kwv-kr-Nef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463" y="-530"/>
+            <point key="canvasLocation" x="-461" y="-121"/>
         </scene>
         <!--Agendar Cita-->
         <scene sceneID="fW2-r4-1ds">
@@ -1073,6 +1073,7 @@
         <image name="archivebox.fill" catalog="system" width="64" height="52"/>
         <image name="arrow.left" catalog="system" width="64" height="48"/>
         <image name="defaultIdentificacion" width="279" height="277"/>
+        <image name="doctor" width="512" height="512"/>
         <image name="editUser" width="256" height="256"/>
         <image name="eye" catalog="system" width="64" height="40"/>
         <image name="house" catalog="system" width="64" height="54"/>

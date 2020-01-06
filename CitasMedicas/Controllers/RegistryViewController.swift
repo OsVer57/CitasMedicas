@@ -206,9 +206,11 @@ class RegistryViewController: UIViewController {
 
         
         let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntitypick, identification: identification, email: email, password: self.encryptPassword(password: password), photoFront: self.convertImageToStringBase64(img: resizeImageFront), photoBack: self.convertImageToStringBase64(img: resizeImageBack))
-        //print(obj)
+
+        self.showActivityIndicatory(uiView: self.view)
         registryUser(user: obj, callback: { result, message in
             DispatchQueue.main.async {
+                self.hideActivityIndicator(uiView: self.view)
                 if result{
                     let alert = UIAlertController(title: "Usuario registrado", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Iniciar Sesión", style: .default, handler:{ action in

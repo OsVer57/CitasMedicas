@@ -70,7 +70,7 @@ extension String {
         return passwordTest.evaluate(with: self)
     }
     var validText:Bool{
-        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{3,50}[\\S])"
+        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{3,50})"
         let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
         return textTest.evaluate(with: self)
         
@@ -100,10 +100,13 @@ extension UIButton{
     }
 }
 
+//Contrucción de Activity Indicator para mostrar progresos
+var container: UIView = UIView()
+var loadingView: UIView = UIView()
+var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
 
 // Extensión UIViewController
 extension UIViewController{
-    
     //Función que permite crear una alerta personalizada para mostrar mensajes de exito y error
     func createAlert (title:String , message:String, messageBtn:String) {
         let alert = UIAlertController (title: title , message: message, preferredStyle: .alert)
@@ -151,7 +154,7 @@ extension UIViewController{
         let ancho:CGFloat = image.size.width
         let alto:CGFloat = image.size.height
         let imgRelacion:CGFloat = ancho/alto
-        let maximoAncho:CGFloat = 640
+        let maximoAncho:CGFloat = 720
         let nuevoAlto:CGFloat = maximoAncho/imgRelacion
         let constanteCompresion:CGFloat = 0.5
         
@@ -165,6 +168,34 @@ extension UIViewController{
         
         return UIImage(data: imgData)!
     }
+    
+    // Función para mostrar indicador de actividad mientras se ejecuta un proceso tardado
+    func showActivityIndicatory(uiView: UIView) {
+        container.frame = uiView.frame
+        container.center = uiView.center
+        container.backgroundColor = UIColor(white: 0xffffff, alpha: 0.3)
 
+        loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        loadingView.center = uiView.center
+        loadingView.backgroundColor = UIColor(white: 0x444444, alpha: 0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0);
+        activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2,
+                                y: loadingView.frame.size.height / 2);
+        
+        loadingView.addSubview(activityIndicator)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
+        activityIndicator.startAnimating()
+    }
+    
+    // Oculta el indicador de actividades
+    func hideActivityIndicator(uiView: UIView) {
+        activityIndicator.stopAnimating()
+        container.removeFromSuperview()
+    }
     
 }
