@@ -72,7 +72,7 @@
                                     <constraint firstAttribute="height" constant="30" id="dA3-0Q-AOX"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="eye" catalog="system"/>
+                                <state key="normal" image="eye.slash" catalog="system"/>
                                 <connections>
                                     <action selector="showPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dlU-bs-l0J"/>
                                 </connections>
@@ -517,7 +517,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRb-52-tnM">
                                                 <rect key="frame" x="269" y="1166" width="26" height="22"/>
                                                 <color key="tintColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" image="eye" catalog="system"/>
+                                                <state key="normal" image="eye.slash" catalog="system"/>
                                                 <connections>
                                                     <action selector="showPassword2:" destination="A6y-1A-H9g" eventType="touchUpInside" id="4Rp-xW-cDy"/>
                                                 </connections>
@@ -525,7 +525,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uy9-F2-Nlk">
                                                 <rect key="frame" x="269" y="1124" width="26" height="22"/>
                                                 <color key="tintColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" image="eye" catalog="system"/>
+                                                <state key="normal" image="eye.slash" catalog="system"/>
                                                 <connections>
                                                     <action selector="showPassword:" destination="A6y-1A-H9g" eventType="touchUpInside" id="2tE-vp-X0u"/>
                                                 </connections>
@@ -736,6 +736,11 @@
                                                     <constraint firstAttribute="width" constant="272" id="IAG-Ox-kcj"/>
                                                     <constraint firstAttribute="height" constant="200" id="WR7-DW-cTj"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                        <real key="value" value="100"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUq-92-lmR">
                                                 <rect key="frame" x="96" y="820" width="128" height="30"/>
@@ -1075,7 +1080,7 @@
         <image name="defaultIdentificacion" width="279" height="277"/>
         <image name="doctor" width="512" height="512"/>
         <image name="editUser" width="256" height="256"/>
-        <image name="eye" catalog="system" width="64" height="40"/>
+        <image name="eye.slash" catalog="system" width="64" height="42"/>
         <image name="house" catalog="system" width="64" height="54"/>
         <image name="house.fill" catalog="system" width="64" height="52"/>
         <image name="logo" width="1080" height="1505"/>
@@ -1083,6 +1088,6 @@
         <image name="person.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NYy-J1-QGD"/>
+        <segue reference="Gj3-G6-40M"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -148,10 +148,10 @@ class ViewController: UIViewController {
     //Función para mostrar contenido del campo contraseña
     @IBAction func showPassword(_ sender: UIButton) {
         if (txtPassword.isSecureTextEntry){
-            sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            sender.setImage(UIImage(systemName: "eye"), for: .normal)
             txtPassword.isSecureTextEntry = false
         }else {
-            sender.setImage(UIImage(systemName: "eye"), for: .normal)
+            sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
             txtPassword.isSecureTextEntry = true
         }
     }

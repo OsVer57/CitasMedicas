@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct Appointment {
+struct Appointment: Encodable {
     var date:String
     var time:String
-    var nameDoctor:String
-    var specialism:String
+    var doctorName:String
+    var doctorSpecialism:String
     
 }

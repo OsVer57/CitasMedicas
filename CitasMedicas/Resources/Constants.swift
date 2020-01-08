@@ -17,6 +17,7 @@ struct Constants {
     }
     struct Strings {
         static let URL_BASE:String = "una url"
+        static let AvailableSchedules:[String] = ["10:00 am", "12:00 pm", "3:00 pm"]
         static let BIRTH_ENTITY:[String] = ["Aguascalientes",
         "Baja California",
         "Baja California Sur",
@@ -51,6 +52,7 @@ struct Constants {
         "Zacatecas"]
     }
     
+    
 }
 
 
@@ -70,7 +72,7 @@ extension String {
         return passwordTest.evaluate(with: self)
     }
     var validText:Bool{
-        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{3,50})"
+        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\S]{3,50})"
         let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
         return textTest.evaluate(with: self)
         

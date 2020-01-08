@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class RegistryViewController: UIViewController {
     
@@ -23,12 +24,10 @@ class RegistryViewController: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtPassword2: UITextField!
     
-    
     @IBOutlet weak var btnShowPassword: UIButton!
     @IBOutlet weak var btnShowPassword2: UIButton!
     @IBOutlet weak var btnRegistry: UIButton!
     
-
     @IBOutlet weak var photo1: UIButton!
     @IBOutlet weak var photo2: UIButton!
     
@@ -42,7 +41,6 @@ class RegistryViewController: UIViewController {
     var dateFormatter = DateFormatter()
     var birthEntitypick:String = ""
     var activeField: UITextField?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,18 +58,21 @@ class RegistryViewController: UIViewController {
         self.btnRegistry.roundButton()
         
     }
+    
+    // Se agregan los observadores correspondientes para desplazar el contenido de un formulario cuando el teclado se muestra y para ocultarlo.
     func registerForKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    
+    // Función para ajustar contenido cuando se oculta el teclado.
     @objc func willHideKeyboard(notification: Notification) {
         let contentInsets: UIEdgeInsets = .zero
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
     }
     
+    // Función para ajustar contenido cuando se muestra el teclado y este está por encima del campo de texto.
     @objc func willShowKeyboard(notification: Notification){
         guard let info = notification.userInfo else { return }
 
@@ -88,7 +89,7 @@ class RegistryViewController: UIViewController {
         }
     }
     
-    
+    // Función para validar que los campos de texto definidos no estén vacios.
     func validateEmpty() {
         guard let name = txtName.text, name != "" else {
             self.createAlert(title: "ERROR", message: "El nombre no puede estar vacio.", messageBtn: "OK")
@@ -128,6 +129,7 @@ class RegistryViewController: UIViewController {
         }
     }
     
+    // Función para saber el tipo de identificación que fue selecionada.
     @IBAction func selectIdentification(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -141,33 +143,37 @@ class RegistryViewController: UIViewController {
         }
     }
     
+    // Funciones para mostrar el contenido de un campo de texto de tipo password.
     @IBAction func showPassword(_ sender: UIButton) {
         if (txtPassword.isSecureTextEntry){
-            sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            sender.setImage(UIImage(systemName: "eye"), for: .normal)
             txtPassword.isSecureTextEntry = false
         }else {
-            sender.setImage(UIImage(systemName: "eye"), for: .normal)
+            sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
             txtPassword.isSecureTextEntry = true
         }
     }
-    
     @IBAction func showPassword2(_ sender: UIButton) {
         if (txtPassword2.isSecureTextEntry){
-            sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            sender.setImage(UIImage(systemName: "eye"), for: .normal)
             txtPassword2.isSecureTextEntry = false
         }else {
-            sender.setImage(UIImage(systemName: "eye"), for: .normal)
+            sender.setImage(UIImage(systemName: "eye.slash"), for: .normal)
             txtPassword2.isSecureTextEntry = true
         }
     }
     
+    // Función para registra un nuevo usuario.
     @IBAction func registerUser(_ sender: Any) {
+        
+        // Se define el formato de fecha a utilizar.
         self.dateFormatter.calendar = pickDate.calendar
         self.dateFormatter.dateFormat = "dd/MM/yyyy"
-
+        
+        // Se valida que los campos obligatorios no se encuantren vacios.
         self.validateEmpty()
         
-        
+        // Se validad el formato de texto para cada campo de texto en el formulario
         guard let name = txtName.text, name.validText else {
             self.createAlert(title: "ERROR", message: "El nombre no puede contener caracteres especiales y debe tener una longitud de entre 3 y 50 caracteres.", messageBtn: "OK")
             return
@@ -203,15 +209,22 @@ class RegistryViewController: UIViewController {
         
         let resizeImageFront = self.resize(imageFront)
         let resizeImageBack = self.resize(imageBack)
-
         
+        // Se instancia el objeto de tipo 'User' para enviar por parametro a la función que ejecuta el consumo de servicio.
         let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntitypick, identification: identification, email: email, password: self.encryptPassword(password: password), photoFront: self.convertImageToStringBase64(img: resizeImageFront), photoBack: self.convertImageToStringBase64(img: resizeImageBack))
-
+        
+        // Se muestra el indicador de actividades.
         self.showActivityIndicatory(uiView: self.view)
+        
+        // Se ejecuta la función para el consumo del servicio de registro de usuarios.
         registryUser(user: obj, callback: { result, message in
             DispatchQueue.main.async {
+                // Se detien el indicador de actividades.
                 self.hideActivityIndicator(uiView: self.view)
+                
+                // Se evalua si el resultado devuelto por el servicio fue exitoso (true).
                 if result{
+                    // Se muestra mensaje de éxito.
                     let alert = UIAlertController(title: "Usuario registrado", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Iniciar Sesión", style: .default, handler:{ action in
                         
@@ -222,34 +235,38 @@ class RegistryViewController: UIViewController {
                     } ))
                     self.present(alert,animated: true)
                 } else {
+                    // Si no se devuelve verdadero se muestra el error.
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")
                 }
             }
         })
     }
     
+    // Funciónes para agregar una imagen de identificación desde la cámara
     @IBAction func takePhoto1(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(.camera){
+            image.allowsEditing = false
+            image.sourceType = .camera
+            image.cameraCaptureMode = .photo
+            
+            present(image, animated: true, completion: nil )
+            
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-                image.allowsEditing = false
-                image.sourceType = .camera
-                image.cameraCaptureMode = .photo
-                
                 present(image, animated: true, completion: nil )
             }
         }else{
             self.createAlert(title: "Cámara no disponible", message: "La cámara no se pudo iniciar, pruebe selecionando una imagen de la galería.", messageBtn: "OK")
         }
-        
-        
     }
     @IBAction func takePhoto2(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(.camera){
+            image.allowsEditing = false
+            image.sourceType = .camera
+            image.cameraCaptureMode = .photo
+            
+            present(image, animated: true, completion: nil )
+            
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-                image.allowsEditing = false
-                image.sourceType = .camera
-                image.cameraCaptureMode = .photo
-                
                 present(image, animated: true, completion: nil )
             }
         }else{
@@ -257,44 +274,46 @@ class RegistryViewController: UIViewController {
         }
     }
     
+    // Funciónes para agregar una imagen de identificación desde la galería de imagenes.
     @IBAction func selectPhoto(_ sender: Any) {
         bandera = false
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            image.allowsEditing = false
+            image.allowsEditing = true
             image.sourceType = .photoLibrary
                        
             present(image, animated: true, completion: nil )
         }
     }
-    
     @IBAction func selectPhoto2(_ sender: Any) {
         bandera = true
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            image.allowsEditing = false
+            image.allowsEditing = true
             image.sourceType = .photoLibrary
               
             present(image, animated: true, completion: nil )
         }
     }
     
+    // Función que permite cargar el elemento seleccionado por la cámara o de la galería.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
          if let imagenSeleccionada: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            if bandera {
+            if image.sourceType == .camera {
+                UIImageWriteToSavedPhotosAlbum(imagenSeleccionada, nil,nil,nil)
+            }else if bandera {
                 imgBack.image = imagenSeleccionada
                 imgBack.image?.accessibilityIdentifier = "photoBack"
             }else if bandera == false {
                 imgFront.image = imagenSeleccionada
                 imgFront.image?.accessibilityIdentifier = "photoFront"
             }
-             if image.sourceType == .camera {
-                 UIImageWriteToSavedPhotosAlbum(imagenSeleccionada, nil,nil,nil)
-             }
+             
          }
         image.dismiss(animated: true, completion: nil)
     }
     
 }
 
+// Extensión del Controller para agregar los protocolos de UIPicker UIImagePicker y UINavigation
 extension RegistryViewController: UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
