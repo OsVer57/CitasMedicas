@@ -8,6 +8,7 @@
 
 import UIKit
 import LocalAuthentication
+import CoreData
 
 class ViewController: UIViewController {
     
@@ -21,15 +22,32 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblBiometric: UILabel!
     @IBOutlet weak var btnBiometric: UIButton!
     
+    var manageObjects:[NSManagedObject] = []
     let context = LAContext()
     var error:NSError?
     var strAlertMessage = String()
+    var objUserPrueba: User = User(name: "", firstLastName: "", secondLastName: "", birthday: "", birthEntity: "", identification: "", email: "", password: "", photoFront: "", photoBack: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
         self.btnLogin.roundButton()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "UserCore")
+        
+        do{
+            manageObjects = try managedContext.fetch(fetchRequest)
+            for manageObject in manageObjects {
+                managedContext.delete(manageObject)
+            }
+            
+        }catch let error as NSError{
+            print("\(error.userInfo)")
+        }
     
+        self.objUserPrueba = User(name: "Hugo", firstLastName: "Paco", secondLastName: "Luis", birthday: "10/10/1999", birthEntity: "Zacatecas", identification: "IFE", email: "huguito@gmail.com", password: "12345678", photoFront: self.convertImageToStringBase64(img: UIImage(named: "defaultIdentificacion.jpg")!), photoBack: "foto trasera")
         //Verificación de sistemas biometricos en el dispositivo
         
         if (context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)){
@@ -113,6 +131,32 @@ class ViewController: UIViewController {
         }
     }
     
+    func recordUserCoreData(user:User){
+        let peticion = NSFetchRequest<UserCore>(entityName: "Alumno")
+        peticion.predicate = NSPredicate(format: "nombreCompleto != nil")
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "UserCore", in: managedContext)!
+        let managedObject = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+        managedObject.setValue(user.photoFront, forKeyPath: "identification")
+        managedObject.setValue(user.name, forKeyPath: "name")
+        managedObject.setValue(user.firstLastName, forKeyPath: "firstLastName")
+        managedObject.setValue(user.secondLastName, forKeyPath: "secondLastName")
+        managedObject.setValue(user.birthday, forKeyPath: "birthday")
+        managedObject.setValue(user.birthEntity, forKeyPath: "birthEntity")
+        managedObject.setValue(user.email, forKeyPath: "email")
+        
+        do{
+            try managedContext.save()
+            print("hecho")
+        }catch let error as NSError{
+            print("\(error.userInfo)")
+        }
+    }
+    
     //Función de botón
     @IBAction func login(_ sender: Any) {
         //Validación de campos vacios
@@ -129,10 +173,12 @@ class ViewController: UIViewController {
         }
         //Se ejecuta función para consumo de servicio
         self.showActivityIndicatory(uiView: self.view)
-        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message in
+        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message /*,user */ in
             DispatchQueue.main.async {
                 self.hideActivityIndicator(uiView: self.view)
                 if result{
+                    self.recordUserCoreData(user: self.objUserPrueba)
+                    
                     let story = UIStoryboard(name: "Main", bundle: nil)
                     let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
                     self.present(controlador,animated: true, completion: nil)
@@ -161,6 +207,7 @@ class ViewController: UIViewController {
         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: self.strAlertMessage, reply: { [unowned self] (success, error) -> Void in
             DispatchQueue.main.async {
                 if (success){
+                    self.recordUserCoreData(user: self.objUserPrueba)
                     let story = UIStoryboard(name: "Main", bundle: nil)
                     let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
                     self.present(controlador,animated: true, completion: nil)

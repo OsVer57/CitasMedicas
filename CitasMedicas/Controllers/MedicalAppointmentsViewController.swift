@@ -53,7 +53,6 @@ class MedicalAppointmentsViewController: UIViewController {
         DispatchQueue.main.async {
             self.tblAppointments.reloadData()
         }
-        
     }
     
 }

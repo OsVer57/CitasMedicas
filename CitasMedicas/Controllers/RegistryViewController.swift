@@ -52,6 +52,7 @@ class RegistryViewController: UIViewController {
         self.pickEntity.dataSource = self
         
         self.image.delegate = self
+        
         self.imgFront.image?.accessibilityIdentifier = "defaultIdentificacion"
         self.imgBack.image?.accessibilityIdentifier = "defaultIdentificacion"
         

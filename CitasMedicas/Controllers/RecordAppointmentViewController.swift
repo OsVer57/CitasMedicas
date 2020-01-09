@@ -50,7 +50,6 @@ class RecordAppointmentViewController: UIViewController {
         
         //self.showActivityIndicatory(uiView: self.view)
         self.recordAppointmentCoreData()
-        //self.hideActivityIndicator(uiView: self.view)
         // Se ejecuta la función para el consumo del servicio de registro de citas.
         /*registryAppointment(appointment: obj, callback: { result, message in
             DispatchQueue.main.async {
