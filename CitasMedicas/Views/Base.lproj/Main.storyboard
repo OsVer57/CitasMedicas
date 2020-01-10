@@ -243,45 +243,57 @@
                                 <rect key="frame" x="16" y="78" width="288" height="405"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AppointmentCell" rowHeight="95" id="qnB-FG-XHb" customClass="AppintmentsTableViewCell" customModule="CitasMedicas" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="288" height="95"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AppointmentCell" rowHeight="109" id="qnB-FG-XHb" customClass="AppintmentsTableViewCell" customModule="CitasMedicas" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="288" height="109"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qnB-FG-XHb" id="96w-I9-dmI">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="95"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1D-dr-6mT">
-                                                    <rect key="frame" x="15" y="11" width="51" height="21"/>
+                                                    <rect key="frame" x="15" y="69" width="51" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medico" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPb-t1-jJz">
+                                                    <rect key="frame" x="15" y="11" width="258" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Especialidad" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cA-eV-5Q6">
+                                                    <rect key="frame" x="15" y="40" width="258" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hora" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6b-qP-aad">
-                                                    <rect key="frame" x="123" y="11" width="37" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medico - Especialidad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPb-t1-jJz">
-                                                    <rect key="frame" x="15" y="40" width="169.5" height="21"/>
+                                                    <rect key="frame" x="137" y="69" width="37" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KPb-t1-jJz" firstAttribute="top" secondItem="v1D-dr-6mT" secondAttribute="bottom" constant="8" id="6A5-I7-hUX"/>
-                                                <constraint firstItem="v1D-dr-6mT" firstAttribute="top" secondItem="96w-I9-dmI" secondAttribute="topMargin" id="MFX-k1-9ae"/>
-                                                <constraint firstItem="E6b-qP-aad" firstAttribute="top" secondItem="96w-I9-dmI" secondAttribute="topMargin" id="Tna-mG-RLO"/>
-                                                <constraint firstAttribute="bottom" secondItem="KPb-t1-jJz" secondAttribute="bottom" constant="34" id="gBv-54-xi9"/>
-                                                <constraint firstItem="KPb-t1-jJz" firstAttribute="leading" secondItem="96w-I9-dmI" secondAttribute="leadingMargin" id="nw7-fQ-aAf"/>
-                                                <constraint firstItem="v1D-dr-6mT" firstAttribute="leading" secondItem="96w-I9-dmI" secondAttribute="leadingMargin" id="tV6-dl-K4l"/>
-                                                <constraint firstItem="E6b-qP-aad" firstAttribute="leading" secondItem="v1D-dr-6mT" secondAttribute="trailing" constant="57" id="vBX-rD-O2d"/>
+                                                <constraint firstItem="v1D-dr-6mT" firstAttribute="top" secondItem="1cA-eV-5Q6" secondAttribute="bottom" constant="8" id="Fzr-xz-uOq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="E6b-qP-aad" secondAttribute="trailing" constant="99" id="KDp-16-HDL"/>
+                                                <constraint firstItem="KPb-t1-jJz" firstAttribute="top" secondItem="96w-I9-dmI" secondAttribute="topMargin" id="Nlz-Fe-Q4d"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="E6b-qP-aad" secondAttribute="bottom" constant="8" id="f9v-0s-ddG"/>
+                                                <constraint firstItem="1cA-eV-5Q6" firstAttribute="top" secondItem="KPb-t1-jJz" secondAttribute="bottom" constant="8" id="gSl-zY-CPM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="v1D-dr-6mT" secondAttribute="bottom" constant="8" id="m9e-R4-wVF"/>
+                                                <constraint firstItem="1cA-eV-5Q6" firstAttribute="leading" secondItem="96w-I9-dmI" secondAttribute="leadingMargin" id="nUI-yn-jRQ"/>
+                                                <constraint firstItem="KPb-t1-jJz" firstAttribute="leading" secondItem="96w-I9-dmI" secondAttribute="leadingMargin" id="qjJ-hS-Lvv"/>
+                                                <constraint firstItem="E6b-qP-aad" firstAttribute="top" secondItem="1cA-eV-5Q6" secondAttribute="bottom" constant="8" id="tEf-lZ-jDp"/>
+                                                <constraint firstItem="v1D-dr-6mT" firstAttribute="leading" secondItem="96w-I9-dmI" secondAttribute="leadingMargin" id="usH-7d-7eT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1cA-eV-5Q6" secondAttribute="trailing" id="wrn-ym-CtU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="KPb-t1-jJz" secondAttribute="trailing" id="yNT-Xe-fOZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="lblDateAppointments" destination="v1D-dr-6mT" id="V7E-cn-kEv"/>
                                             <outlet property="lblDoctor" destination="KPb-t1-jJz" id="2M6-qb-MxH"/>
+                                            <outlet property="lblSpecialism" destination="1cA-eV-5Q6" id="ZGv-fU-90L"/>
                                             <outlet property="lblTime" destination="E6b-qP-aad" id="QIR-BM-e6N"/>
                                         </connections>
                                     </tableViewCell>

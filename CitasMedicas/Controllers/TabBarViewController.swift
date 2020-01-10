@@ -10,10 +10,19 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
 
+    var action:Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        guard let showView = action else { return }
+        guard let tabBarControllerSelected = tabBarController else { return }
+        if showView  == 1{
+            tabBarControllerSelected.selectedIndex = 1
+        }else if showView == 2 {
+            tabBarControllerSelected.selectedIndex = 2
+        }else{
+            tabBarControllerSelected.selectedIndex = 0
+        }
     }
     
 

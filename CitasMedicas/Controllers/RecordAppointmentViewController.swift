@@ -32,7 +32,7 @@ class RecordAppointmentViewController: UIViewController {
         super.viewDidLoad()
         self.calendar.delegate = self
         self.calendar.dataSource = self
-        self.time = Constants.Strings.SCHEDULES.sorted()[0]
+        //self.time = Constants.Strings.SCHEDULES.sorted()[0]
         self.pickAvailableSchedules.delegate = self
         self.pickAvailableSchedules.dataSource = self
         
@@ -77,6 +77,8 @@ class RecordAppointmentViewController: UIViewController {
                         self.time = ""
                         self.createAlert(title: "Sin horarios disponibles", message: "No quedan horarios disponibles para el \(self.date), intente seleccionar otro día.", messageBtn: "OK")
                         
+                    }else{
+                        self.time = self.availableSchedules.sorted().first
                     }
                     // Se cargan nuevamente los datos obtenidos de la consulta.
                     self.pickAvailableSchedules.reloadAllComponents()

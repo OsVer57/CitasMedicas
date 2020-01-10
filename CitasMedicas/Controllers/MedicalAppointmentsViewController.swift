@@ -34,7 +34,7 @@ class MedicalAppointmentsViewController: UIViewController {
     
     let search = UISearchController(searchResultsController: nil)
     
-    // Closure que permite definir una acción al hacer un deslizamiento de una tabla desde la vista superior.
+    // Closure que permite definir una acción al hacer un deslizamiento de una tabla desde la vista superior. 192 168 15 46
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl .addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -74,7 +74,8 @@ extension MedicalAppointmentsViewController: UITableViewDataSource, UITableViewD
         
         cell.lblDateAppointments.text = "Fecha: \(date)"
         cell.lblTime.text = "Hora: \(time)"
-        cell.lblDoctor.text = "Médico: \(doctorName) - \(doctorSpecialism)"
+        cell.lblDoctor.text = "Médico: \(doctorName)"
+        cell.lblSpecialism.text = "Especialidad: \(doctorSpecialism)"
         return cell
     }
     // Función para agregar funciones especificas al deslizar una celda desde el lado derecho.
