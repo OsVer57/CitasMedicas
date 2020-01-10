@@ -21,20 +21,17 @@ class DoctorsViewController: UIViewController {
         self.tblDoctors.addSubview(refreshControl)
         self.downloadDoctors()
         
-        // Objeto de prueba
-        let obj = Doctors(Name: "Mariana Tenorio", Specialism: "Pediatria", ProfessionalID: "ASWQ1234", Location: "Algún lugar")
-        doctors.append(obj)
     }
     
     // Función para obtener la lista de doctores de la base de datos.
     func downloadDoctors(){
         // Se muestra el indicador de actividades
-        //self.showActivityIndicatory(uiView: self.view)
+        self.showActivityIndicatory(uiView: self.view)
         // Se ejecuta la función del consumo de sericio
         getDoctors(callback: { result, listDoctors in
             DispatchQueue.main.async {
                 // Se detiene el indicador de actividades.
-          //      self.hideActivityIndicator(uiView: self.view)
+                self.hideActivityIndicator(uiView: self.view)
                 if (result){
                     self.doctors = listDoctors
                     // Se cargan nuevamente los datos obtenidos de la consulta.
@@ -99,13 +96,10 @@ extension DoctorsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let story = UIStoryboard(name: "Main", bundle: nil)
         let controlador = story.instantiateViewController(identifier: "RecordAppointment")as! RecordAppointmentViewController
+        //controlador.doc
+        let doctor:Doctors = doctors[indexPath.row]
+        controlador.selectedDoctor = doctor
         self.present(controlador,animated: true, completion: nil)
         
-        let doctor:Doctors = doctors[indexPath.row]
-
-        controlador.lblName.text = doctor.name
-        controlador.lblProfessionalID.text = doctor.professionalID
-        controlador.lblSpecialism.text = doctor.specialism
-        controlador.lblLocation.text = doctor.location
     }
 }

@@ -17,7 +17,7 @@ struct Constants {
     }
     struct Strings {
         static let URL_BASE:String = "una url"
-        static let AvailableSchedules:[String] = ["10:00 am", "12:00 pm", "3:00 pm"]
+        static let SCHEDULES:Set<String> = Set(["10", "12", "15"])
         static let BIRTH_ENTITY:[String] = ["Aguascalientes",
         "Baja California",
         "Baja California Sur",

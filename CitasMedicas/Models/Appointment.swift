@@ -13,5 +13,6 @@ struct Appointment: Encodable {
     var time:String
     var doctorName:String
     var doctorSpecialism:String
+    var professionalID:String
     
 }

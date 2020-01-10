@@ -83,7 +83,7 @@ extension MedicalAppointmentsViewController: UITableViewDataSource, UITableViewD
         let eliminar = UITableViewRowAction(style: .normal, title: "Eliminar", handler: { (_, action) -> Void in
             
             // Se crea una alerta para notificar al usuario de la acción que se realizará.
-            let ac = UIAlertController(title: "Eliminar", message: "¿Realmente desea eliminar este campo? Las citas eliminadas no se pueden recuperar", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Eliminar", message: "¿Realmente desea eliminar esta cita? Las citas eliminadas no se pueden recuperar", preferredStyle: .alert)
             let accion = UIAlertAction(title: "Eliminar", style: .default){ [unowned ac] _ in
                 // Si se confirma la acción por el usuario qjecuta las sig. acciones.
                 let obj = self.manageObjects[indexPath.row]

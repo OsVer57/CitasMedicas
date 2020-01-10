@@ -15,6 +15,7 @@
 		5207AD1423A99F3B0003DE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5207AD1323A99F3B0003DE10 /* Assets.xcassets */; };
 		5207AD1723A99F3C0003DE10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5207AD1523A99F3C0003DE10 /* LaunchScreen.storyboard */; };
 		5222A35B23B67D45008E23DD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222A35A23B67D45008E23DD /* TabBarViewController.swift */; };
+		5227A34D23C7F39000CB4D1B /* AvailableSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227A34C23C7F39000CB4D1B /* AvailableSchedules.swift */; };
 		522EAD8923B25F52006A3B41 /* DoctorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8823B25F52006A3B41 /* DoctorsTableViewCell.swift */; };
 		522EAD8B23B2603E006A3B41 /* AppointmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8A23B2603E006A3B41 /* AppointmentsTableViewCell.swift */; };
 		522EAD8D23B264B6006A3B41 /* Doctors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EAD8C23B264B6006A3B41 /* Doctors.swift */; };
@@ -43,6 +44,7 @@
 		5207AD1623A99F3C0003DE10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5207AD1823A99F3C0003DE10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5222A35A23B67D45008E23DD /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		5227A34C23C7F39000CB4D1B /* AvailableSchedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableSchedules.swift; sourceTree = "<group>"; };
 		522EAD8823B25F52006A3B41 /* DoctorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsTableViewCell.swift; sourceTree = "<group>"; };
 		522EAD8A23B2603E006A3B41 /* AppointmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentsTableViewCell.swift; sourceTree = "<group>"; };
 		522EAD8C23B264B6006A3B41 /* Doctors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctors.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				52B985C523B17AF100E541CF /* User.swift */,
 				522EAD8C23B264B6006A3B41 /* Doctors.swift */,
 				522EAD8E23B2723B006A3B41 /* Appointment.swift */,
+				5227A34C23C7F39000CB4D1B /* AvailableSchedules.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				52B985D323B18A3F00E541CF /* Constants.swift in Sources */,
 				522EAD8923B25F52006A3B41 /* DoctorsTableViewCell.swift in Sources */,
 				522EAD8B23B2603E006A3B41 /* AppointmentsTableViewCell.swift in Sources */,
+				5227A34D23C7F39000CB4D1B /* AvailableSchedules.swift in Sources */,
 				5222A35B23B67D45008E23DD /* TabBarViewController.swift in Sources */,
 				5207AD0823A99F340003DE10 /* AppDelegate.swift in Sources */,
 				52B985CD23B183AC00E541CF /* MedicalAppointmentsViewController.swift in Sources */,

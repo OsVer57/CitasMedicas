@@ -21,37 +21,91 @@ class RecordAppointmentViewController: UIViewController {
     @IBOutlet weak var pickAvailableSchedules: UIPickerView!
     @IBOutlet weak var btnRecordAppointment: UIButton!
     
+    var selectedDoctor:Doctors?
     var dateFormatter = DateFormatter()
     var date:String = ""
-    var time:String = ""
+    var time:String?
+    let schedules:Set<String> = Constants.Strings.SCHEDULES
+    var availableSchedules:Set<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.calendar.delegate = self
         self.calendar.dataSource = self
-        self.time = Constants.Strings.AvailableSchedules[0]
+        self.time = Constants.Strings.SCHEDULES.sorted()[0]
         self.pickAvailableSchedules.delegate = self
         self.pickAvailableSchedules.dataSource = self
         
+        guard let auxSelectedDoctor = selectedDoctor else { return }
+        
+        self.lblName.text = auxSelectedDoctor.name
+        self.lblSpecialism.text = auxSelectedDoctor.specialism
+        self.lblProfessionalID.text = auxSelectedDoctor.professionalID
+        self.lblLocation.text = auxSelectedDoctor.location
+        
         self.dateFormatter.dateFormat = "dd/MM/yyyy"
         print("today \(dateFormatter.string(from: self.calendar.today!))")
+        //print("professionalID \(self.lblProfessionalID.text!)")
         self.date = "\(dateFormatter.string(from: self.calendar.today!))"
         
-        
+        self.downloadAvailableSchedules()
         btnRecordAppointment.roundButton()
+    }
+    
+    // Función para obtener la lista de horarios disponibles de la base de datos.
+    func downloadAvailableSchedules(){
+        guard let professionalID = lblProfessionalID.text else { return }
+        
+        // Se muestra el indicador de actividades
+        self.showActivityIndicatory(uiView: self.view)
+        // Se ejecuta la función del consumo de sericio
+        getAvailableSchedules(professionalID: professionalID, date: self.date , callback: { result, busySchedules in
+            print(result)
+            print(busySchedules)
+            DispatchQueue.main.async {
+                // Se detiene el indicador de actividades.
+                self.hideActivityIndicator(uiView: self.view)
+                if (result){
+                    var busySchedulesString: Set<String> = []
+                    for auxBusySchedules in busySchedules {
+                        busySchedulesString.insert(auxBusySchedules.schedules)
+                    }
+                    print(busySchedulesString.count)
+                    self.availableSchedules = self.schedules.subtracting(busySchedulesString)
+                    
+                    if (self.availableSchedules.count < 1){
+                        self.time = ""
+                        self.createAlert(title: "Sin horarios disponibles", message: "No quedan horarios disponibles para el \(self.date), intente seleccionar otro día.", messageBtn: "OK")
+                        
+                    }
+                    // Se cargan nuevamente los datos obtenidos de la consulta.
+                    self.pickAvailableSchedules.reloadAllComponents()
+                }else {
+                    // Si no se devuelve verdadero se muestra el error.
+                    self.createAlert(title: "ERROR", message: "No se pueden cargar los horarios disponibles para la fecha seleccionada.", messageBtn: "OK")
+                }
+            }
+        })
+        
     }
     
     @IBAction func recordAppointment(_ sender: Any) {
         guard let doctorName = lblName.text else { return }
         guard let doctorSpecialism = lblSpecialism.text else { return }
+        guard let professionalID = lblProfessionalID.text else { return }
+        
+        guard let auxTime = time, auxTime != "" else {
+            self.createAlert(title: "ERROR", message: "No se puede agendar la cita por que no hay horarios disponibles para la fecha seleccionada.", messageBtn: "OK")
+            return
+        }
        
-        let obj = Appointment(date: date, time: time, doctorName: doctorName, doctorSpecialism: doctorSpecialism)
+        let obj = Appointment(date: date, time: auxTime, doctorName: doctorName, doctorSpecialism: doctorSpecialism, professionalID: professionalID)
         print(obj)
         
         //self.showActivityIndicatory(uiView: self.view)
         self.recordAppointmentCoreData()
         // Se ejecuta la función para el consumo del servicio de registro de citas.
-        /*registryAppointment(appointment: obj, callback: { result, message in
+        registryAppointment(appointment: obj, callback: { result, message in
             DispatchQueue.main.async {
                 // Se detiene el indicador de actividades.
                 self.hideActivityIndicator(uiView: self.view)
@@ -80,7 +134,7 @@ class RecordAppointmentViewController: UIViewController {
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")
                 }
             }
-        })*/
+        })
     }
     
     func recordAppointmentCoreData(){
@@ -110,6 +164,7 @@ extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSou
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("didSelect \(dateFormatter.string(from: date))")
         self.date = "\(dateFormatter.string(from: date))"
+        self.downloadAvailableSchedules()
     }
     func minimumDate(for calendar: FSCalendar) -> Date {
         return calendar.today!
@@ -136,13 +191,13 @@ extension RecordAppointmentViewController: UIPickerViewDelegate, UIPickerViewDat
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        Constants.Strings.AvailableSchedules.count
+        return self.availableSchedules.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Constants.Strings.AvailableSchedules[row]
+        return self.availableSchedules.sorted()[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.time = Constants.Strings.AvailableSchedules[row] as String
+        self.time = self.availableSchedules.sorted()[row] as String
     }
     
     

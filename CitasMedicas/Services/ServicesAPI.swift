@@ -8,7 +8,7 @@
 
 import Foundation
 
-let baseUrl:String = "http://10.95.71.39:8080/agendaMedica/"
+let baseUrl:String = "http://10.95.71.46:8080/agendaMedica/"
 let urlPruebaLogin = "http://www.maggrupo.com/users/wsLogin"
 let urlPruebaRegistro = "http://www.maggrupo.com/users/wsadd"
 let urlPruebaRegistroImagen = "http://www.maggrupoempresarial.com/mygalery/insertarimg.php"
@@ -34,10 +34,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
         "identification":"\(user.identification)",
         "userphotoFront": "\(user.photoFront)",
         "userphotoBack": "\(user.photoBack)"]
- 
-    //let params[String:String] = ["username":"osver57@gmail.com","nombre":"Oscar","apellidos":"Vera Ortiz","password":"1holagg1","cumple":"25/12/1994","genero":"1","busca":"2","perfil":"1"]
     
-    //let params:[String:String] = ["nombre": "\(user.name)", "images": "\(user.name)", "imagebase": "\(user.photoFront)"]
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
     request.httpBody = httpBody
     let session = URLSession.shared
@@ -84,7 +81,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
             print("Exito en la operación")
             
         }else if operationCode == "-1" {
-            callback(true, message)
+            callback(false, message)
             print("Correo repetido")
             
         }
@@ -92,11 +89,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
             callback(false, message)
             print("Error operation code != 1")
         }
-        
-        
-        
     }
-
     task.resume()
 }
 
@@ -209,16 +202,15 @@ func getDoctors(callback: @escaping (Bool,[Doctors]) -> ()){
 
 // Registrar una cita nueva
 func registryAppointment(appointment:Appointment,callback: @escaping (Bool,String) -> ()){
-    var result = [User]()
-    guard let url = URL(string: "\(baseUrl)registry") else { print("no se puede acceder al endpoint")
+    guard let url = URL(string: "\(baseUrl)registryAppoiment") else { print("no se puede acceder al endpoint")
         return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-    let params:[String:String] = ["date":"\(appointment.date)",
-        "time":"\(appointment.time)",
-        "nameDoctor":"\(appointment.doctorName)",
-        "specialism":"\(appointment.doctorSpecialism)"]
+    let def = ""
+    let params:[String:String] = ["cedula":"\(appointment.professionalID)",
+        "hora":"\(appointment.time)",
+        "fecha":"\(appointment.date)"]
     
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
     request.httpBody = httpBody
@@ -265,28 +257,28 @@ func registryAppointment(appointment:Appointment,callback: @escaping (Bool,Strin
             callback(true, message)
             print("Exito en la operación")
             
+        }else if operationCode == "-1" {
+            callback(true, message)
+            print("Correo repetido")
+            
         }
         else {
             callback(false, message)
             print("Error operation code != 1")
         }
-        
-        
-        
     }
-
     task.resume()
 }
 // Obtener horarios disponibles
-func getAvailableSchedules(cedula:String, fecha:String, callback: @escaping (Bool,[Doctors]) -> ()){
+func getAvailableSchedules(professionalID:String, date:String, callback: @escaping (Bool,[AvailableSchedules]) -> ()){
     var code = false
-    var result = [Doctors]()
-    guard let url = URL(string: "\(baseUrl)selection") else { print("no se puede entrar a la url")
+    var result = [AvailableSchedules]()
+    guard let url = URL(string: "\(baseUrl)consultSchedule") else { print("no se puede entrar a la url")
         return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    let params:[String:String] = [:]
+    let params:[String:String] = ["cedula":"\(professionalID)","fecha":"\(date)"]
     guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
     request.httpBody = httpBody
     let session = URLSession.shared
@@ -311,8 +303,9 @@ func getAvailableSchedules(cedula:String, fecha:String, callback: @escaping (Boo
             return
         }
         code = true
-        for doctor in (json["doctorList"] as? [Dictionary<String,Any>])! {
-            result.append(Doctors(dictionary: doctor))
+        for availableSchedule in (json["listHora"] as? [Dictionary<String,Any>])! {
+            result.append(AvailableSchedules(dictionary: availableSchedule))
+            //print("\(result)")
         }
         callback(code, result)
                 
