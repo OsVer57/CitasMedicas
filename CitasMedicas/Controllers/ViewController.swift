@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     let context = LAContext()
     var error:NSError?
     var strAlertMessage = String()
-    var objUserPrueba: User = User(name: "", firstLastName: "", secondLastName: "", birthday: "", birthEntity: "", identification: "", email: "", password: "", photoFront: "", photoBack: "")
+    var users: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +46,6 @@ class ViewController: UIViewController {
         }catch let error as NSError{
             print("\(error.userInfo)")
         }
-    
-        self.objUserPrueba = User(name: "Hugo", firstLastName: "Paco", secondLastName: "Luis", birthday: "10/10/1999", birthEntity: "Zacatecas", identification: "IFE", email: "huguito@gmail.com", password: "12345678", photoFront: self.convertImageToStringBase64(img: UIImage(named: "defaultIdentificacion.jpg")!), photoBack: "foto trasera")
         //Verificación de sistemas biometricos en el dispositivo
         
         if (context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)){
@@ -173,11 +171,12 @@ class ViewController: UIViewController {
         }
         //Se ejecuta función para consumo de servicio
         self.showActivityIndicatory(uiView: self.view)
-        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message /*,user */ in
+        loginUser(email:email, pass: self.encryptPassword(password: password), callback: { result, message ,user in
             DispatchQueue.main.async {
                 self.hideActivityIndicator(uiView: self.view)
                 if result{
-                    self.recordUserCoreData(user: self.objUserPrueba)
+                    self.users = user
+                    self.recordUserCoreData(user: self.users.first!)
                     
                     let story = UIStoryboard(name: "Main", bundle: nil)
                     let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
@@ -207,7 +206,7 @@ class ViewController: UIViewController {
         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: self.strAlertMessage, reply: { [unowned self] (success, error) -> Void in
             DispatchQueue.main.async {
                 if (success){
-                    self.recordUserCoreData(user: self.objUserPrueba)
+                    //self.recordUserCoreData(user: self.users.first!)
                     let story = UIStoryboard(name: "Main", bundle: nil)
                     let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
                     self.present(controlador,animated: true, completion: nil)

@@ -906,6 +906,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3D-k6-i60">
                                                 <rect key="frame" x="16" y="704" width="288" height="30"/>
                                                 <state key="normal" title="Cerrar Sesión"/>
+                                                <connections>
+                                                    <segue destination="BYZ-38-t0r" kind="show" id="7KD-lR-RcN"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Correo Electrónico" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dK0-W5-EG8">
                                                 <rect key="frame" x="16" y="469" width="288" height="34"/>
@@ -1002,4 +1005,7 @@
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="7KD-lR-RcN"/>
+    </inferredMetricsTieBreakers>
 </document>

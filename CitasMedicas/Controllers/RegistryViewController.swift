@@ -212,7 +212,7 @@ class RegistryViewController: UIViewController {
         let resizeImageBack = self.resize(imageBack)
         
         // Se instancia el objeto de tipo 'User' para enviar por parametro a la función que ejecuta el consumo de servicio.
-        let obj = User(name: name, firstLastName: firstLastName, secondLastName: secondLastName, birthday: dateFormatter.string(from: pickDate.date), birthEntity: birthEntitypick, identification: identification, email: email, password: self.encryptPassword(password: password), photoFront: self.convertImageToStringBase64(img: resizeImageFront), photoBack: self.convertImageToStringBase64(img: resizeImageBack))
+        let obj = User(Name: name, FirstLastName: firstLastName, SecondLastName: secondLastName, Birthday: dateFormatter.string(from: pickDate.date), BirthEntity: birthEntitypick, Identification: identification, Email: email, Password: self.encryptPassword(password: password), PhotoFront: self.convertImageToStringBase64(img: resizeImageFront), PhotoBack: self.convertImageToStringBase64(img: resizeImageBack))
         
         // Se muestra el indicador de actividades.
         self.showActivityIndicatory(uiView: self.view)

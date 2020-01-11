@@ -8,7 +8,9 @@
 
 import Foundation
 
-let baseUrl:String = "http://10.95.71.46:8080/agendaMedica/"
+let baseUrl:String = "http://192.168.15.46:8080/agendaMedica/"
+let baseUrl2:String = "http://192.168.15.46:8080/agendaMedica/"
+
 let urlPruebaLogin = "http://www.maggrupo.com/users/wsLogin"
 let urlPruebaRegistro = "http://www.maggrupo.com/users/wsadd"
 let urlPruebaRegistroImagen = "http://www.maggrupoempresarial.com/mygalery/insertarimg.php"
@@ -95,12 +97,14 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
 
 
 // Inicio de sesión
-func loginUser(email:String, pass:String ,callback: @escaping (Bool,String/*,User*/) -> ()){
+func loginUser(email:String, pass:String ,callback: @escaping (Bool,String,[User]) -> ()){
+    var code = false
+    var result = [User]()
     guard let url = URL(string: "\(baseUrl)login") else { print("no se puede acceder al endpoint")
         return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     let params:[String:String] = ["email":"\(email)",
         "password":"\(pass)"]
     
@@ -110,7 +114,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String/*,Use
     let task = session.dataTask(with: request) { data, response, error in
         guard error == nil  else {
             print("Error : \(String(describing: error))")
-            callback(false, "Tiempo de respuesta terminado.")
+            callback(false, "Tiempo de respuesta terminado.", result)
             
             return
         }
@@ -118,7 +122,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String/*,Use
         guard let content = data else {
             
             print("No data")
-            callback(false, "No data")
+            callback(code, "No data", result)
             return
         }
         
@@ -126,7 +130,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String/*,Use
             print(datos)
         }
         guard let json = (try? JSONSerialization.jsonObject(with: content, options: .mutableContainers)) as? [String : Any] else {
-            callback(false, "Error JSON Type")
+            callback(false, "Error JSON Type", result)
             print("Error JSON Type")
             return
         }
@@ -134,22 +138,27 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String/*,Use
         print("Login User -> \(json["operationCode"])")
         
         guard let operationCode = json["operationCode"] as? String else {
-            callback(false, "Operation code no recuperable")
+            callback(false, "Operation code no recuperable", result)
             return
             
         }
         guard let message = json["message"] as? String else {
-            callback(false, "Mensaje de respuesta no recuperable")
+            callback(false, "Mensaje de respuesta no recuperable", result)
             return
             
         }
         if operationCode == "1" {
-            callback(true, message)
+            code = true
+            for user in (json["listUser"] as? [Dictionary<String,Any>])! {
+                result.append(User(dictionary: user))
+                
+            }
+            callback(true, message, result)
             print("Exito en la operación")
             
         }
         else {
-            callback(false, message)
+            callback(false, message, result)
             print("Error operation code != 1")
         }
     }
