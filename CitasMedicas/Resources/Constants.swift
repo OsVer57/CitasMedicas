@@ -16,9 +16,9 @@ struct Constants {
         static let defaultColor = UIColor(red: 79/255, green: 195/255, blue: 247/255, alpha: 1)
     }
     struct Strings {
-        static let URL_BASE:String = "una url"
+        static let URL_BASE:String = "http://10.95.71.37:8080/agendaMedica/"
         static let SCHEDULES:Set<String> = Set(["10", "12", "15"])
-        static let BIRTH_ENTITY:[String] = ["Aguascalientes",
+        static let BIRTH_ENTITY:[String] = ["Selecciona una opción","Aguascalientes",
         "Baja California",
         "Baja California Sur",
         "Campeche",
@@ -72,7 +72,7 @@ extension String {
         return passwordTest.evaluate(with: self)
     }
     var validText:Bool{
-        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\S]{3,50})"
+        let textRegex = "([A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{2,50})"
         let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
         return textTest.evaluate(with: self)
         

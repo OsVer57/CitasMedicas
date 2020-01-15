@@ -41,6 +41,7 @@ class RegistryViewController: UIViewController {
     var dateFormatter = DateFormatter()
     var birthEntitypick:String = ""
     var activeField: UITextField?
+    var today:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,12 @@ class RegistryViewController: UIViewController {
         
         self.imgFront.image?.accessibilityIdentifier = "defaultIdentificacion"
         self.imgBack.image?.accessibilityIdentifier = "defaultIdentificacion"
+        
+        // Se define el formato de fecha a utilizar.
+        self.dateFormatter.calendar = pickDate.calendar
+        self.dateFormatter.dateFormat = "dd/MM/yyyy"
+                
+        today = self.dateFormatter.string(from: pickDate.date)
         
         self.btnRegistry.roundButton()
         
@@ -124,10 +131,15 @@ class RegistryViewController: UIViewController {
             self.createAlert(title: "ERROR", message: "Debes agregar una foto trasera de tu identificación.", messageBtn: "OK")
             return
         }
-        guard birthEntitypick != "" else {
+        guard today !=  dateFormatter.string(from: pickDate.date) else {
+            self.createAlert(title: "ERROR", message: "Debes seleccionar una fecha de nacimineto.", messageBtn: "OK")
+            return
+        }
+        guard birthEntitypick != "Selecciona una opción" else {
             self.createAlert(title: "ERROR", message: "Debes seleccionar una entidad de nacimineto.", messageBtn: "OK")
             return
         }
+        
     }
     
     // Función para saber el tipo de identificación que fue selecionada.
@@ -166,11 +178,6 @@ class RegistryViewController: UIViewController {
     
     // Función para registra un nuevo usuario.
     @IBAction func registerUser(_ sender: Any) {
-        
-        // Se define el formato de fecha a utilizar.
-        self.dateFormatter.calendar = pickDate.calendar
-        self.dateFormatter.dateFormat = "dd/MM/yyyy"
-        
         // Se valida que los campos obligatorios no se encuantren vacios.
         self.validateEmpty()
         
@@ -226,7 +233,7 @@ class RegistryViewController: UIViewController {
                 // Se evalua si el resultado devuelto por el servicio fue exitoso (true).
                 if result{
                     // Se muestra mensaje de éxito.
-                    let alert = UIAlertController(title: "Usuario registrado", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Usuario registrado", message: "\(message)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Iniciar Sesión", style: .default, handler:{ action in
                         
                         let story = UIStoryboard(name: "Main", bundle: nil)

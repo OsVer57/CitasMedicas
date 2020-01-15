@@ -130,9 +130,6 @@ class ViewController: UIViewController {
     }
     
     func recordUserCoreData(user:User){
-        let peticion = NSFetchRequest<UserCore>(entityName: "Alumno")
-        peticion.predicate = NSPredicate(format: "nombreCompleto != nil")
-        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let managedContext = appDelegate!.persistentContainer.viewContext
         
@@ -180,6 +177,7 @@ class ViewController: UIViewController {
                     
                     let story = UIStoryboard(name: "Main", bundle: nil)
                     let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
+                    controlador.action = 1
                     self.present(controlador,animated: true, completion: nil)
                 } else {
                     self.createAlert(title: "ERROR", message: message, messageBtn: "OK")

@@ -8,19 +8,12 @@
 
 import Foundation
 
-let baseUrl:String = "http://192.168.15.46:8080/agendaMedica/"
-let baseUrl2:String = "http://192.168.15.46:8080/agendaMedica/"
-
-let urlPruebaLogin = "http://www.maggrupo.com/users/wsLogin"
-let urlPruebaRegistro = "http://www.maggrupo.com/users/wsadd"
-let urlPruebaRegistroImagen = "http://www.maggrupoempresarial.com/mygalery/insertarimg.php"
-
 var config = URLSessionConfiguration.default
 let session = URLSession(configuration: config)
 
 // Registrar un nuevo usuario
 func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
-    guard let url = URL(string: "\(baseUrl)registry") else { print("no se puede acceder al endpoint")
+    guard let url = URL(string: "\(Constants.Strings.URL_BASE)registry") else { print("no se puede acceder al endpoint")
         return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -100,7 +93,7 @@ func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
 func loginUser(email:String, pass:String ,callback: @escaping (Bool,String,[User]) -> ()){
     var code = false
     var result = [User]()
-    guard let url = URL(string: "\(baseUrl)login") else { print("no se puede acceder al endpoint")
+    guard let url = URL(string: "\(Constants.Strings.URL_BASE)login") else { print("no se puede acceder al endpoint")
         return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -127,7 +120,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String,[User
         }
         
         if let datos = String(data: content, encoding: .utf8) {
-            print(datos)
+            //print(datos)
         }
         guard let json = (try? JSONSerialization.jsonObject(with: content, options: .mutableContainers)) as? [String : Any] else {
             callback(false, "Error JSON Type", result)
@@ -135,7 +128,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String,[User
             return
         }
         
-        print("Login User -> \(json["operationCode"])")
+        //print("Login User -> \(json["operationCode"])")
         
         guard let operationCode = json["operationCode"] as? String else {
             callback(false, "Operation code no recuperable", result)
@@ -148,8 +141,9 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String,[User
             
         }
         if operationCode == "1" {
+            //print(json["user"])
             code = true
-            for user in (json["listUser"] as? [Dictionary<String,Any>])! {
+            for user in (json["user"] as? [Dictionary<String,Any>])! {
                 result.append(User(dictionary: user))
                 
             }
@@ -170,7 +164,7 @@ func loginUser(email:String, pass:String ,callback: @escaping (Bool,String,[User
 func getDoctors(callback: @escaping (Bool,[Doctors]) -> ()){
     var code = false
     var result = [Doctors]()
-    guard let url = URL(string: "\(baseUrl)selection") else { print("no se puede entrar a la url")
+    guard let url = URL(string: "\(Constants.Strings.URL_BASE)selection") else { print("no se puede entrar a la url")
         return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -191,7 +185,7 @@ func getDoctors(callback: @escaping (Bool,[Doctors]) -> ()){
             return
         }
         if let datos = String(data: content, encoding: .utf8) {
-            print(datos)
+            //print(datos)
         }
         
         guard let json = (try? JSONSerialization.jsonObject(with: content, options: .mutableContainers)) as? [String : Any] else {
@@ -211,7 +205,7 @@ func getDoctors(callback: @escaping (Bool,[Doctors]) -> ()){
 
 // Registrar una cita nueva
 func registryAppointment(appointment:Appointment,callback: @escaping (Bool,String) -> ()){
-    guard let url = URL(string: "\(baseUrl)registryAppoiment") else { print("no se puede acceder al endpoint")
+    guard let url = URL(string: "\(Constants.Strings.URL_BASE)registryAppoiment") else { print("no se puede acceder al endpoint")
         return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -282,7 +276,7 @@ func registryAppointment(appointment:Appointment,callback: @escaping (Bool,Strin
 func getAvailableSchedules(professionalID:String, date:String, callback: @escaping (Bool,[AvailableSchedules]) -> ()){
     var code = false
     var result = [AvailableSchedules]()
-    guard let url = URL(string: "\(baseUrl)consultSchedule") else { print("no se puede entrar a la url")
+    guard let url = URL(string: "\(Constants.Strings.URL_BASE)consultSchedule") else { print("no se puede entrar a la url")
         return}
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

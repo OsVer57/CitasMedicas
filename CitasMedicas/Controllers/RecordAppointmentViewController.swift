@@ -23,6 +23,7 @@ class RecordAppointmentViewController: UIViewController {
     
     var selectedDoctor:Doctors?
     var dateFormatter = DateFormatter()
+    var timeFormatter = DateFormatter()
     var date:String = ""
     var time:String?
     let schedules:Set<String> = Constants.Strings.SCHEDULES
@@ -32,7 +33,6 @@ class RecordAppointmentViewController: UIViewController {
         super.viewDidLoad()
         self.calendar.delegate = self
         self.calendar.dataSource = self
-        //self.time = Constants.Strings.SCHEDULES.sorted()[0]
         self.pickAvailableSchedules.delegate = self
         self.pickAvailableSchedules.dataSource = self
         
@@ -78,6 +78,7 @@ class RecordAppointmentViewController: UIViewController {
                         self.createAlert(title: "Sin horarios disponibles", message: "No quedan horarios disponibles para el \(self.date), intente seleccionar otro día.", messageBtn: "OK")
                         
                     }else{
+                        
                         self.time = self.availableSchedules.sorted().first
                     }
                     // Se cargan nuevamente los datos obtenidos de la consulta.
@@ -104,7 +105,7 @@ class RecordAppointmentViewController: UIViewController {
         let obj = Appointment(date: date, time: auxTime, doctorName: doctorName, doctorSpecialism: doctorSpecialism, professionalID: professionalID)
         print(obj)
         
-        //self.showActivityIndicatory(uiView: self.view)
+        self.showActivityIndicatory(uiView: self.view)
         self.recordAppointmentCoreData()
         // Se ejecuta la función para el consumo del servicio de registro de citas.
         registryAppointment(appointment: obj, callback: { result, message in
@@ -114,20 +115,19 @@ class RecordAppointmentViewController: UIViewController {
                 // Se evalua si el resultado devuelto por el servicio fue exitoso (true).
                 if result{
                     // Se muestra mensaje de éxito.
-                    let alert = UIAlertController(title: "Cita agendada", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Cita agendada", message: "\(message).", preferredStyle: .alert)
                     let guardar = UIAlertAction(title: "Ver Citas", style: .default, handler: {
                         (action:UIAlertAction) -> Void in
                                                     
                         let story = UIStoryboard(name: "Main", bundle: nil)
                         let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
                         self.present(controlador,animated: true, completion: nil)
+                        
+                        controlador.action = 1
                     })
                     
-                    let cancelar = UIAlertAction(title: "Agendar otra cita", style: .default)
-                    {(action: UIAlertAction) -> Void in }
-                    
                         alert.addAction(guardar)
-                        alert.addAction(cancelar)
+                        
                         
                     self.present (alert, animated: true, completion: nil)
 
@@ -181,6 +181,16 @@ extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSou
         maxDateComponents.year = calendarDate.year!
 
         let maxDate = Calendar(identifier: Calendar.Identifier.gregorian).date(from: maxDateComponents)
+        
+        return maxDate!
+    }
+    func maxHour(for calendar: FSCalendar) -> Date {
+        let calendarDate = Calendar.current.dateComponents([.hour], from: calendar.today!)
+        
+        var maxAppointmentHour = DateComponents()
+        maxAppointmentHour.hour = calendarDate.hour!
+
+        let maxDate = Calendar(identifier: Calendar.Identifier.gregorian).date(from: maxAppointmentHour)
         
         return maxDate!
     }
