@@ -67,11 +67,12 @@ extension MedicalAppointmentsViewController: UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentCell", for: indexPath) as! AppintmentsTableViewCell
         
         let obj = self.manageObjects[indexPath.row]
+        guard let folio = obj.value(forKey: "folio")! as? String else {return cell}
         guard let date = obj.value(forKey: "date")! as? String else {return cell}
         guard let time = obj.value(forKey: "time")! as? String else { return cell }
         guard let doctorName = obj.value(forKey: "doctorName")! as? String else { return cell }
         guard let doctorSpecialism = obj.value(forKey: "doctorSpecialism")! as? String else { return cell }
-        
+        cell.lblFolio.text = "Folio: \(folio)"
         cell.lblDateAppointments.text = "Fecha: \(date)"
         cell.lblTime.text = "Hora: \(time)"
         cell.lblDoctor.text = "Médico: \(doctorName)"

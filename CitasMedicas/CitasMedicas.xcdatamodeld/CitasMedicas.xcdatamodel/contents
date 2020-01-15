@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="MedicalAppointment" representedClassName="MedicalAppointment" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="doctorName" optional="YES" attributeType="String"/>
         <attribute name="doctorSpecialism" optional="YES" attributeType="String"/>
+        <attribute name="folio" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String"/>
     </entity>
     <entity name="UserCore" representedClassName="UserCore" syncable="YES" codeGenerationType="class">
@@ -13,10 +14,11 @@
         <attribute name="firstLastName" optional="YES" attributeType="String"/>
         <attribute name="identification" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
         <attribute name="secondLastName" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="MedicalAppointment" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="UserCore" positionX="-54" positionY="18" width="128" height="148"/>
+        <element name="MedicalAppointment" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="UserCore" positionX="-54" positionY="18" width="128" height="163"/>
     </elements>
 </model>

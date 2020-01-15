@@ -252,31 +252,29 @@ class RegistryViewController: UIViewController {
     
     // Funciónes para agregar una imagen de identificación desde la cámara
     @IBAction func takePhoto1(_ sender: Any) {
+        bandera = false
         if UIImagePickerController.isSourceTypeAvailable(.camera){
-            image.allowsEditing = false
+            image.allowsEditing = true
             image.sourceType = .camera
             image.cameraCaptureMode = .photo
             
             present(image, animated: true, completion: nil )
             
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-                present(image, animated: true, completion: nil )
-            }
+            
         }else{
             self.createAlert(title: "Cámara no disponible", message: "La cámara no se pudo iniciar, pruebe selecionando una imagen de la galería.", messageBtn: "OK")
         }
     }
     @IBAction func takePhoto2(_ sender: Any) {
+        bandera = true
         if UIImagePickerController.isSourceTypeAvailable(.camera){
-            image.allowsEditing = false
+            image.allowsEditing = true
             image.sourceType = .camera
             image.cameraCaptureMode = .photo
             
             present(image, animated: true, completion: nil )
             
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-                present(image, animated: true, completion: nil )
-            }
+            
         }else{
             self.createAlert(title: "Cámara no disponible", message: "La cámara no se pudo iniciar, pruebe selecionando una imagen de la galería.", messageBtn: "OK")
         }
@@ -304,13 +302,17 @@ class RegistryViewController: UIViewController {
     
     // Función que permite cargar el elemento seleccionado por la cámara o de la galería.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-         if let imagenSeleccionada: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            if image.sourceType == .camera {
-                UIImageWriteToSavedPhotosAlbum(imagenSeleccionada, nil,nil,nil)
-            }else if bandera {
+         if let imagenSeleccionada: UIImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            if image.sourceType == .camera && bandera {
                 imgBack.image = imagenSeleccionada
                 imgBack.image?.accessibilityIdentifier = "photoBack"
-            }else if bandera == false {
+            }else if image.sourceType == .camera && bandera == false {
+                imgFront.image = imagenSeleccionada
+                imgFront.image?.accessibilityIdentifier = "photoFront"
+            }else if image.sourceType == .photoLibrary && bandera {
+                imgBack.image = imagenSeleccionada
+                imgBack.image?.accessibilityIdentifier = "photoBack"
+            }else if image.sourceType == .photoLibrary && bandera == false {
                 imgFront.image = imagenSeleccionada
                 imgFront.image?.accessibilityIdentifier = "photoFront"
             }
