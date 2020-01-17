@@ -123,14 +123,6 @@ class RegistryViewController: UIViewController {
             self.createAlert(title: "ERROR", message: "Debes seleccionar un tipo de identificación.", messageBtn: "OK")
             return
         }
-        guard let photoFront = imgFront.image, photoFront.accessibilityIdentifier != "defaultIdentificacion" else {
-            self.createAlert(title: "ERROR", message: "Debes agregar una foto frontal de tu identificación.", messageBtn: "OK")
-            return
-        }
-        guard let photoBack = imgBack.image, photoBack.accessibilityIdentifier != "defaultIdentificacion" else {
-            self.createAlert(title: "ERROR", message: "Debes agregar una foto trasera de tu identificación.", messageBtn: "OK")
-            return
-        }
         guard today !=  dateFormatter.string(from: pickDate.date) else {
             self.createAlert(title: "ERROR", message: "Debes seleccionar una fecha de nacimineto.", messageBtn: "OK")
             return
@@ -214,6 +206,16 @@ class RegistryViewController: UIViewController {
         guard let identification = identification else { return }
         guard let imageFront = imgFront.image else { return }
         guard let imageBack = imgBack.image else { return }
+        
+        guard let photoFront = imgFront.image?.accessibilityIdentifier, photoFront != "defaultIdentificacion" else{
+            
+            self.createAlert(title: "ERROR", message: "Debes agregar una foto frontal de tu identificación.", messageBtn: "OK")
+            return
+        }
+        guard let photoBack = imgBack.image?.accessibilityIdentifier, photoBack != "defaultIdentificacion" else{
+            self.createAlert(title: "ERROR", message: "Debes agregar una foto trasera de tu identificación.", messageBtn: "OK")
+            return
+        }
         
         let resizeImageFront = self.resize(imageFront)
         let resizeImageBack = self.resize(imageBack)

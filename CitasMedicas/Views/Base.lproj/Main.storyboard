@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Correo Electrónico" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggb-53-Z2l">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ingresa Tu Correo Electrónico" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggb-53-Z2l">
                                 <rect key="frame" x="16" y="230" width="288" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
@@ -43,7 +43,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AsM-3q-6sK">
                                 <rect key="frame" x="16" y="518" width="288" height="30"/>
-                                <state key="normal" title="Registrate"/>
+                                <state key="normal" title="Regístrate"/>
                                 <connections>
                                     <segue destination="A6y-1A-H9g" kind="show" identifier="SegueRegistro" id="xsP-aC-42q"/>
                                 </connections>
@@ -54,7 +54,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JkH-5b-bGf">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ingresa Tu Contraseña" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JkH-5b-bGf">
                                 <rect key="frame" x="16" y="280" width="288" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
@@ -147,7 +147,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Médicos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufr-KA-d9c">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doctores" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufr-KA-d9c">
                                 <rect key="frame" x="16" y="32" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
@@ -215,7 +215,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hng-KX-7Z5"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="house" catalog="system" selectedImage="house.fill" id="yXV-FO-gc0"/>
+                    <tabBarItem key="tabBarItem" title="Inicio" image="house" catalog="system" selectedImage="house.fill" id="yXV-FO-gc0"/>
                     <navigationItem key="navigationItem" id="ySC-gg-OYe"/>
                     <connections>
                         <outlet property="tblDoctors" destination="9ke-v6-tUW" id="KSk-mm-aZk"/>
@@ -322,7 +322,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lCc-UR-MaX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="archivebox" catalog="system" selectedImage="archivebox.fill" id="AuU-8m-aXo"/>
+                    <tabBarItem key="tabBarItem" title="Mis Citas" image="archivebox" catalog="system" selectedImage="archivebox.fill" id="AuU-8m-aXo"/>
                     <connections>
                         <outlet property="tblAppointments" destination="4Da-0o-gkh" id="dio-Ry-d15"/>
                     </connections>
@@ -473,29 +473,29 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-tg-Ggq">
-                                                <rect key="frame" x="47" y="947" width="78" height="30"/>
-                                                <state key="normal" title="Tomar Foto"/>
+                                                <rect key="frame" x="45" y="947" width="83" height="30"/>
+                                                <state key="normal" title="Foto Frontal"/>
                                                 <connections>
                                                     <action selector="takePhoto1:" destination="A6y-1A-H9g" eventType="touchUpInside" id="6YQ-gg-M2I"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wjw-f4-GS8">
                                                 <rect key="frame" x="62" y="981" width="48" height="30"/>
-                                                <state key="normal" title="Galeria"/>
+                                                <state key="normal" title="Galería"/>
                                                 <connections>
                                                     <action selector="selectPhoto:" destination="A6y-1A-H9g" eventType="touchUpInside" id="l0K-Cr-Jeq"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0X-sY-WhX">
-                                                <rect key="frame" x="195" y="951" width="78" height="30"/>
-                                                <state key="normal" title="Tomar Foto"/>
+                                                <rect key="frame" x="186" y="951" width="97" height="30"/>
+                                                <state key="normal" title="Foto Posterior"/>
                                                 <connections>
                                                     <action selector="takePhoto2:" destination="A6y-1A-H9g" eventType="touchUpInside" id="daa-HJ-6Oh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mx1-be-0z9">
                                                 <rect key="frame" x="210" y="985" width="48" height="30"/>
-                                                <state key="normal" title="Galeria"/>
+                                                <state key="normal" title="Galería"/>
                                                 <connections>
                                                     <action selector="selectPhoto2:" destination="A6y-1A-H9g" eventType="touchUpInside" id="bxt-a3-CaO"/>
                                                 </connections>
@@ -593,7 +593,7 @@
                                             <constraint firstAttribute="height" constant="1300" id="Vow-eO-ryo"/>
                                             <constraint firstItem="M5g-Ve-clM" firstAttribute="top" secondItem="1hU-43-1SN" secondAttribute="bottom" constant="8" id="WHs-7C-NPs"/>
                                             <constraint firstItem="AGp-Tc-mVX" firstAttribute="leading" secondItem="r3f-mP-fOC" secondAttribute="leading" constant="16" id="Who-FP-hPH"/>
-                                            <constraint firstItem="JrW-tg-Ggq" firstAttribute="leading" secondItem="r3f-mP-fOC" secondAttribute="leading" constant="47" id="XM4-HK-xps"/>
+                                            <constraint firstItem="JrW-tg-Ggq" firstAttribute="leading" secondItem="r3f-mP-fOC" secondAttribute="leading" constant="45" id="XM4-HK-xps"/>
                                             <constraint firstAttribute="trailing" secondItem="bFl-y8-Ozn" secondAttribute="trailing" constant="16" id="Ydg-bM-f88"/>
                                             <constraint firstItem="4fz-2b-Npo" firstAttribute="leading" secondItem="r3f-mP-fOC" secondAttribute="leading" constant="24" id="Ym2-yW-SK0"/>
                                             <constraint firstAttribute="trailing" secondItem="xZO-xZ-Eiu" secondAttribute="trailing" constant="16" id="aDX-D6-w0S"/>
@@ -617,7 +617,7 @@
                                             <constraint firstItem="xZO-xZ-Eiu" firstAttribute="top" secondItem="IxU-62-rEC" secondAttribute="bottom" id="mtp-f3-RKm"/>
                                             <constraint firstAttribute="trailing" secondItem="Uy9-F2-Nlk" secondAttribute="trailing" constant="25" id="naV-gm-GAD"/>
                                             <constraint firstItem="kEQ-5g-Zw3" firstAttribute="top" secondItem="M5g-Ve-clM" secondAttribute="bottom" constant="8" id="poo-Hp-QqS"/>
-                                            <constraint firstAttribute="trailing" secondItem="B0X-sY-WhX" secondAttribute="trailing" constant="47" id="u50-AW-5CX"/>
+                                            <constraint firstAttribute="trailing" secondItem="B0X-sY-WhX" secondAttribute="trailing" constant="37" id="u50-AW-5CX"/>
                                             <constraint firstItem="WKE-dC-Z3o" firstAttribute="top" secondItem="xxm-PP-Fjc" secondAttribute="bottom" constant="8" id="uHG-Gn-rlm"/>
                                             <constraint firstItem="xZO-xZ-Eiu" firstAttribute="leading" secondItem="r3f-mP-fOC" secondAttribute="leading" constant="16" id="vxk-Tn-kai"/>
                                             <constraint firstItem="DAM-Et-66j" firstAttribute="centerX" secondItem="r3f-mP-fOC" secondAttribute="centerX" id="xLF-ax-YRo"/>
@@ -875,17 +875,17 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Apellido Paterno" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCt-Cc-HEA">
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Apellido Paterno" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCt-Cc-HEA">
                                                 <rect key="frame" x="16" y="301" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" textContentType="name"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Apellido Materno" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KeX-WN-3TA">
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Apellido Materno" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KeX-WN-3TA">
                                                 <rect key="frame" x="16" y="343" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" textContentType="name"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="byY-xb-3hb">
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="byY-xb-3hb">
                                                 <rect key="frame" x="16" y="259" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" textContentType="name"/>
@@ -903,12 +903,12 @@
                                                     <constraint firstAttribute="height" constant="128" id="uIl-MS-rPQ"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Fecha de Nacimiento" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IsU-0f-PeV">
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Fecha de Nacimiento" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IsU-0f-PeV">
                                                 <rect key="frame" x="16" y="385" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lugar de Nacimiento" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zmh-Sx-8gp">
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lugar de Nacimiento" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zmh-Sx-8gp">
                                                 <rect key="frame" x="16" y="427" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -917,10 +917,10 @@
                                                 <rect key="frame" x="16" y="704" width="288" height="30"/>
                                                 <state key="normal" title="Cerrar Sesión"/>
                                                 <connections>
-                                                    <segue destination="BYZ-38-t0r" kind="show" id="7KD-lR-RcN"/>
+                                                    <action selector="logOut:" destination="jW7-of-J4X" eventType="touchUpInside" id="7pc-N8-soA"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Correo Electrónico" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dK0-W5-EG8">
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Correo Electrónico" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dK0-W5-EG8">
                                                 <rect key="frame" x="16" y="469" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
@@ -981,7 +981,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RBI-Qe-jip"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" selectedImage="person.fill" id="Vfd-5Y-M0L"/>
+                    <tabBarItem key="tabBarItem" title="Perfil" image="person" catalog="system" selectedImage="person.fill" id="Vfd-5Y-M0L"/>
                     <navigationItem key="navigationItem" id="qfg-xq-g4j"/>
                     <size key="freeformSize" width="320" height="750"/>
                     <connections>
@@ -1015,7 +1015,4 @@
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="NYy-J1-QGD"/>
-    </inferredMetricsTieBreakers>
 </document>

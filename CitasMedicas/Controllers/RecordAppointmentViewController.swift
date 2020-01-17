@@ -39,10 +39,10 @@ class RecordAppointmentViewController: UIViewController {
         
         guard let auxSelectedDoctor = selectedDoctor else { return }
         
-        self.lblName.text = auxSelectedDoctor.name
-        self.lblSpecialism.text = auxSelectedDoctor.specialism
-        self.lblProfessionalID.text = auxSelectedDoctor.professionalID
-        self.lblLocation.text = auxSelectedDoctor.location
+        self.lblName.text = "Doctor: \(auxSelectedDoctor.name)"
+        self.lblSpecialism.text = "Especialidad: \(auxSelectedDoctor.specialism)"
+        self.lblProfessionalID.text = "Cédula: \(auxSelectedDoctor.professionalID)"
+        self.lblLocation.text = "Ubicación: \(auxSelectedDoctor.location)"
         
         self.dateFormatter.dateFormat = "dd/MM/yyyy"
         print("today \(dateFormatter.string(from: self.calendar.today!))")
@@ -128,7 +128,7 @@ class RecordAppointmentViewController: UIViewController {
                     // Se muestra mensaje de éxito.
                     self.folio = folio
                     self.recordAppointmentCoreData()
-                    let alert = UIAlertController(title: "Cita agendada", message: "\(message). El numero de folio de su cita es: \(folio)", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Cita Registrada", message: "\(message). El numero de folio de su cita es: \(folio)", preferredStyle: .alert)
                     let guardar = UIAlertAction(title: "Ver Citas", style: .default, handler: {
                         (action:UIAlertAction) -> Void in
                                                     
@@ -178,7 +178,6 @@ class RecordAppointmentViewController: UIViewController {
 
 extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSource{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("didSelect \(dateFormatter.string(from: date))")
         self.date = "\(dateFormatter.string(from: date))"
         self.auxDate = true
         self.downloadAvailableSchedules()
@@ -221,10 +220,15 @@ extension RecordAppointmentViewController: UIPickerViewDelegate, UIPickerViewDat
         return self.availableSchedules.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.availableSchedules.sorted(by: >)[row]
+        var auxMsg:String = ""
+        if self.availableSchedules.sorted(by: >)[row] == "Selecciona una opción" {
+            auxMsg = ""
+        }else{
+            auxMsg = ":00 hrs"
+        }
+        return "\(self.availableSchedules.sorted(by: >)[row])\(auxMsg)"
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("\(self.availableSchedules.sorted(by: >)[row] as String)")
         self.time = self.availableSchedules.sorted(by: >)[row] as String
     }
     

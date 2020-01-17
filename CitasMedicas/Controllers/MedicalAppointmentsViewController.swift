@@ -74,7 +74,7 @@ extension MedicalAppointmentsViewController: UITableViewDataSource, UITableViewD
         guard let doctorSpecialism = obj.value(forKey: "doctorSpecialism")! as? String else { return cell }
         cell.lblFolio.text = "Folio: \(folio)"
         cell.lblDateAppointments.text = "Fecha: \(date)"
-        cell.lblTime.text = "Hora: \(time)"
+        cell.lblTime.text = "Hora: \(time):00 hrs"
         cell.lblDoctor.text = "Médico: \(doctorName)"
         cell.lblSpecialism.text = "Especialidad: \(doctorSpecialism)"
         return cell
@@ -87,7 +87,7 @@ extension MedicalAppointmentsViewController: UITableViewDataSource, UITableViewD
             // Se crea una alerta para notificar al usuario de la acción que se realizará.
             let ac = UIAlertController(title: "Eliminar", message: "¿Realmente desea eliminar esta cita? Las citas eliminadas no se pueden recuperar", preferredStyle: .alert)
             let accion = UIAlertAction(title: "Eliminar", style: .default){ [unowned ac] _ in
-                // Si se confirma la acción por el usuario qjecuta las sig. acciones.
+                // Si se confirma la acción por el usuario ejecuta las sig. acciones.
                 let obj = self.manageObjects[indexPath.row]
                 
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate

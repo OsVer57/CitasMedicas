@@ -10,7 +10,7 @@ import Foundation
 
 var config = URLSessionConfiguration.default
 let session = URLSession(configuration: config)
-var user = User(Name: <#T##String#>, FirstLastName: <#T##String#>, SecondLastName: <#T##String#>, Birthday: <#T##String#>, BirthEntity: <#T##String#>, Identification: <#T##String#>, Email: <#T##String#>, Password: <#T##String#>, PhotoFront: <#T##String#>, PhotoBack: <#T##String#>)
+
 // Registrar un nuevo usuario
 func registryUser(user:User,callback: @escaping (Bool,String) -> ()){
     guard let url = URL(string: "\(Constants.Strings.URL_BASE)registry") else { print("no se puede acceder al endpoint")
