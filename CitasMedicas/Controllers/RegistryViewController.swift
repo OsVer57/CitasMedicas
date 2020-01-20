@@ -41,6 +41,7 @@ class RegistryViewController: UIViewController {
     var dateFormatter = DateFormatter()
     var birthEntitypick:String = ""
     var activeField: UITextField?
+    var today:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,12 @@ class RegistryViewController: UIViewController {
         
         self.imgFront.image?.accessibilityIdentifier = "defaultIdentificacion"
         self.imgBack.image?.accessibilityIdentifier = "defaultIdentificacion"
+        
+        // Se define el formato de fecha a utilizar.
+        self.dateFormatter.calendar = pickDate.calendar
+        self.dateFormatter.dateFormat = "dd/MM/yyyy"
+                
+        today = self.dateFormatter.string(from: pickDate.date)
         
         self.btnRegistry.roundButton()
         
@@ -116,18 +123,15 @@ class RegistryViewController: UIViewController {
             self.createAlert(title: "ERROR", message: "Debes seleccionar un tipo de identificación.", messageBtn: "OK")
             return
         }
-        guard let photoFront = imgFront.image, photoFront.accessibilityIdentifier != "defaultIdentificacion" else {
-            self.createAlert(title: "ERROR", message: "Debes agregar una foto frontal de tu identificación.", messageBtn: "OK")
+        guard today !=  dateFormatter.string(from: pickDate.date) else {
+            self.createAlert(title: "ERROR", message: "Debes seleccionar una fecha de nacimineto.", messageBtn: "OK")
             return
         }
-        guard let photoBack = imgBack.image, photoBack.accessibilityIdentifier != "defaultIdentificacion" else {
-            self.createAlert(title: "ERROR", message: "Debes agregar una foto trasera de tu identificación.", messageBtn: "OK")
-            return
-        }
-        guard birthEntitypick != "" else {
+        guard birthEntitypick != "Selecciona una opción" else {
             self.createAlert(title: "ERROR", message: "Debes seleccionar una entidad de nacimineto.", messageBtn: "OK")
             return
         }
+        
     }
     
     // Función para saber el tipo de identificación que fue selecionada.
@@ -166,11 +170,6 @@ class RegistryViewController: UIViewController {
     
     // Función para registra un nuevo usuario.
     @IBAction func registerUser(_ sender: Any) {
-        
-        // Se define el formato de fecha a utilizar.
-        self.dateFormatter.calendar = pickDate.calendar
-        self.dateFormatter.dateFormat = "dd/MM/yyyy"
-        
         // Se valida que los campos obligatorios no se encuantren vacios.
         self.validateEmpty()
         
@@ -208,6 +207,16 @@ class RegistryViewController: UIViewController {
         guard let imageFront = imgFront.image else { return }
         guard let imageBack = imgBack.image else { return }
         
+        guard let photoFront = imgFront.image?.accessibilityIdentifier, photoFront != "defaultIdentificacion" else{
+            
+            self.createAlert(title: "ERROR", message: "Debes agregar una foto frontal de tu identificación.", messageBtn: "OK")
+            return
+        }
+        guard let photoBack = imgBack.image?.accessibilityIdentifier, photoBack != "defaultIdentificacion" else{
+            self.createAlert(title: "ERROR", message: "Debes agregar una foto trasera de tu identificación.", messageBtn: "OK")
+            return
+        }
+        
         let resizeImageFront = self.resize(imageFront)
         let resizeImageBack = self.resize(imageBack)
         
@@ -226,7 +235,7 @@ class RegistryViewController: UIViewController {
                 // Se evalua si el resultado devuelto por el servicio fue exitoso (true).
                 if result{
                     // Se muestra mensaje de éxito.
-                    let alert = UIAlertController(title: "Usuario registrado", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Usuario registrado", message: "\(message)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Iniciar Sesión", style: .default, handler:{ action in
                         
                         let story = UIStoryboard(name: "Main", bundle: nil)
@@ -245,31 +254,29 @@ class RegistryViewController: UIViewController {
     
     // Funciónes para agregar una imagen de identificación desde la cámara
     @IBAction func takePhoto1(_ sender: Any) {
+        bandera = false
         if UIImagePickerController.isSourceTypeAvailable(.camera){
-            image.allowsEditing = false
+            image.allowsEditing = true
             image.sourceType = .camera
             image.cameraCaptureMode = .photo
             
             present(image, animated: true, completion: nil )
             
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-                present(image, animated: true, completion: nil )
-            }
+            
         }else{
             self.createAlert(title: "Cámara no disponible", message: "La cámara no se pudo iniciar, pruebe selecionando una imagen de la galería.", messageBtn: "OK")
         }
     }
     @IBAction func takePhoto2(_ sender: Any) {
+        bandera = true
         if UIImagePickerController.isSourceTypeAvailable(.camera){
-            image.allowsEditing = false
+            image.allowsEditing = true
             image.sourceType = .camera
             image.cameraCaptureMode = .photo
             
             present(image, animated: true, completion: nil )
             
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-                present(image, animated: true, completion: nil )
-            }
+            
         }else{
             self.createAlert(title: "Cámara no disponible", message: "La cámara no se pudo iniciar, pruebe selecionando una imagen de la galería.", messageBtn: "OK")
         }
@@ -297,13 +304,17 @@ class RegistryViewController: UIViewController {
     
     // Función que permite cargar el elemento seleccionado por la cámara o de la galería.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-         if let imagenSeleccionada: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            if image.sourceType == .camera {
-                UIImageWriteToSavedPhotosAlbum(imagenSeleccionada, nil,nil,nil)
-            }else if bandera {
+         if let imagenSeleccionada: UIImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            if image.sourceType == .camera && bandera {
                 imgBack.image = imagenSeleccionada
                 imgBack.image?.accessibilityIdentifier = "photoBack"
-            }else if bandera == false {
+            }else if image.sourceType == .camera && bandera == false {
+                imgFront.image = imagenSeleccionada
+                imgFront.image?.accessibilityIdentifier = "photoFront"
+            }else if image.sourceType == .photoLibrary && bandera {
+                imgBack.image = imagenSeleccionada
+                imgBack.image?.accessibilityIdentifier = "photoBack"
+            }else if image.sourceType == .photoLibrary && bandera == false {
                 imgFront.image = imagenSeleccionada
                 imgFront.image?.accessibilityIdentifier = "photoFront"
             }

@@ -12,6 +12,7 @@ class AppintmentsTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDoctor: UILabel!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblSpecialism: UILabel!
+    @IBOutlet weak var lblFolio: UILabel!
     
     @IBOutlet weak var lblDateAppointments: UILabel!
     override func awakeFromNib() {

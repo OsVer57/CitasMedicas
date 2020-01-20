@@ -16,9 +16,9 @@ struct Constants {
         static let defaultColor = UIColor(red: 79/255, green: 195/255, blue: 247/255, alpha: 1)
     }
     struct Strings {
-        static let URL_BASE:String = "una url"
+        static let URL_BASE:String = "http://167.172.136.5:8080/AgendaMedica/agendaMedica/"
         static let SCHEDULES:Set<String> = Set(["10", "12", "15"])
-        static let BIRTH_ENTITY:[String] = ["Aguascalientes",
+        static let BIRTH_ENTITY:[String] = ["Selecciona una opción","Aguascalientes",
         "Baja California",
         "Baja California Sur",
         "Campeche",
@@ -72,7 +72,7 @@ extension String {
         return passwordTest.evaluate(with: self)
     }
     var validText:Bool{
-        let textRegex = "(\\S[A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\S]{3,50})"
+        let textRegex = "([A-ZÑÁÉÍÓÚÜ\\sa-zñáéíóúü\\s]{2,50})"
         let textTest = NSPredicate(format: "SELF MATCHES %@", textRegex)
         return textTest.evaluate(with: self)
         
@@ -175,11 +175,11 @@ extension UIViewController{
     func showActivityIndicatory(uiView: UIView) {
         container.frame = uiView.frame
         container.center = uiView.center
-        container.backgroundColor = UIColor(white: 0xffffff, alpha: 0.3)
+        container.backgroundColor = UIColor(red: 175/255  , green: 182/255, blue: 184/255, alpha: 1)
 
         loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         loadingView.center = uiView.center
-        loadingView.backgroundColor = UIColor(white: 0x444444, alpha: 0.7)
+        loadingView.backgroundColor = UIColor(red: 149/255  , green: 149/255, blue: 149/255, alpha: 1)
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         

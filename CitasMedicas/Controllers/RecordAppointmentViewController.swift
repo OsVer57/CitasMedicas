@@ -24,28 +24,28 @@ class RecordAppointmentViewController: UIViewController {
     var selectedDoctor:Doctors?
     var dateFormatter = DateFormatter()
     var date:String = ""
+    var auxDate:Bool = false
     var time:String?
     let schedules:Set<String> = Constants.Strings.SCHEDULES
     var availableSchedules:Set<String> = []
+    var folio:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.calendar.delegate = self
         self.calendar.dataSource = self
-        //self.time = Constants.Strings.SCHEDULES.sorted()[0]
         self.pickAvailableSchedules.delegate = self
         self.pickAvailableSchedules.dataSource = self
         
         guard let auxSelectedDoctor = selectedDoctor else { return }
         
-        self.lblName.text = auxSelectedDoctor.name
-        self.lblSpecialism.text = auxSelectedDoctor.specialism
-        self.lblProfessionalID.text = auxSelectedDoctor.professionalID
-        self.lblLocation.text = auxSelectedDoctor.location
+        self.lblName.text = "Doctor: \(auxSelectedDoctor.name)"
+        self.lblSpecialism.text = "Especialidad: \(auxSelectedDoctor.specialism)"
+        self.lblProfessionalID.text = "Cédula: \(auxSelectedDoctor.professionalID)"
+        self.lblLocation.text = "Ubicación: \(auxSelectedDoctor.location)"
         
         self.dateFormatter.dateFormat = "dd/MM/yyyy"
         print("today \(dateFormatter.string(from: self.calendar.today!))")
-        //print("professionalID \(self.lblProfessionalID.text!)")
         self.date = "\(dateFormatter.string(from: self.calendar.today!))"
         
         self.downloadAvailableSchedules()
@@ -71,14 +71,18 @@ class RecordAppointmentViewController: UIViewController {
                         busySchedulesString.insert(auxBusySchedules.schedules)
                     }
                     print(busySchedulesString.count)
-                    self.availableSchedules = self.schedules.subtracting(busySchedulesString)
+                    self.availableSchedules.insert("Selecciona una opción")
+                    for i in self.schedules.subtracting(busySchedulesString) {
+                        self.availableSchedules.insert(i)
+                    }
+                    //self.availableSchedules = self.schedules.subtracting(busySchedulesString)
                     
-                    if (self.availableSchedules.count < 1){
+                    if (self.availableSchedules.count < 2){
                         self.time = ""
                         self.createAlert(title: "Sin horarios disponibles", message: "No quedan horarios disponibles para el \(self.date), intente seleccionar otro día.", messageBtn: "OK")
                         
                     }else{
-                        self.time = self.availableSchedules.sorted().first
+                        self.time = self.availableSchedules.sorted(by: >).first
                     }
                     // Se cargan nuevamente los datos obtenidos de la consulta.
                     self.pickAvailableSchedules.reloadAllComponents()
@@ -92,42 +96,50 @@ class RecordAppointmentViewController: UIViewController {
     }
     
     @IBAction func recordAppointment(_ sender: Any) {
-        guard let doctorName = lblName.text else { return }
-        guard let doctorSpecialism = lblSpecialism.text else { return }
-        guard let professionalID = lblProfessionalID.text else { return }
+        guard let auxSelectedDoctor = selectedDoctor else { return }
         
-        guard let auxTime = time, auxTime != "" else {
-            self.createAlert(title: "ERROR", message: "No se puede agendar la cita por que no hay horarios disponibles para la fecha seleccionada.", messageBtn: "OK")
+        guard auxDate != false else {
+            self.createAlert(title: "ERROR", message: "Por favor seleccione una fecha en el calendario para poder agendar la cita.", messageBtn: "OK")
             return
         }
+        
+        guard let auxTime = time, auxTime != "Selecciona una opción" else {
+            self.createAlert(title: "ERROR", message: "Por favor seleccione un horario para poder agendar la cita.", messageBtn: "OK")
+            return
+        }
+        guard time != "" else {
+            self.createAlert(title: "ERROR", message: "No se puede agendar la cita por que no quedan horarios disponibles para la fecha selcionada.", messageBtn: "OK")
+            return
+        }
+        
        
-        let obj = Appointment(date: date, time: auxTime, doctorName: doctorName, doctorSpecialism: doctorSpecialism, professionalID: professionalID)
+        let obj = Appointment(date: date, time: auxTime, doctorName: auxSelectedDoctor.name, doctorSpecialism: auxSelectedDoctor.specialism, professionalID: auxSelectedDoctor.professionalID)
         print(obj)
         
-        //self.showActivityIndicatory(uiView: self.view)
-        self.recordAppointmentCoreData()
+        self.showActivityIndicatory(uiView: self.view)
         // Se ejecuta la función para el consumo del servicio de registro de citas.
-        registryAppointment(appointment: obj, callback: { result, message in
+        registryAppointment(appointment: obj, callback: { result, folio, message in
             DispatchQueue.main.async {
                 // Se detiene el indicador de actividades.
                 self.hideActivityIndicator(uiView: self.view)
                 // Se evalua si el resultado devuelto por el servicio fue exitoso (true).
                 if result{
                     // Se muestra mensaje de éxito.
-                    let alert = UIAlertController(title: "Cita agendada", message: "Los datos se han ingresado correctamente.", preferredStyle: .alert)
+                    self.folio = folio
+                    self.recordAppointmentCoreData()
+                    let alert = UIAlertController(title: "Cita Registrada", message: "\(message). El numero de folio de su cita es: \(folio)", preferredStyle: .alert)
                     let guardar = UIAlertAction(title: "Ver Citas", style: .default, handler: {
                         (action:UIAlertAction) -> Void in
                                                     
                         let story = UIStoryboard(name: "Main", bundle: nil)
                         let controlador = story.instantiateViewController(identifier: "TabBar")as! TabBarViewController
                         self.present(controlador,animated: true, completion: nil)
+                        
+                        controlador.action = 1
                     })
                     
-                    let cancelar = UIAlertAction(title: "Agendar otra cita", style: .default)
-                    {(action: UIAlertAction) -> Void in }
-                    
                         alert.addAction(guardar)
-                        alert.addAction(cancelar)
+                        
                         
                     self.present (alert, animated: true, completion: nil)
 
@@ -145,11 +157,12 @@ class RecordAppointmentViewController: UIViewController {
         
         let entity = NSEntityDescription.entity(forEntityName: "MedicalAppointment", in: managedContext)!
         let managedObject = NSManagedObject(entity: entity, insertInto: managedContext)
-        guard let doctorName = lblName.text else { return }
-        guard let doctorSpecialism = lblSpecialism.text else { return }
         
-        managedObject.setValue(doctorName, forKeyPath: "doctorName")
-        managedObject.setValue(doctorSpecialism, forKeyPath: "doctorSpecialism")
+        guard let auxSelectedDoctor = selectedDoctor else { return }
+        
+        managedObject.setValue(folio, forKeyPath: "folio")
+        managedObject.setValue(auxSelectedDoctor.name, forKeyPath: "doctorName")
+        managedObject.setValue(auxSelectedDoctor.specialism, forKeyPath: "doctorSpecialism")
         managedObject.setValue(date, forKeyPath: "date")
         managedObject.setValue(time, forKeyPath: "time")
         
@@ -164,8 +177,8 @@ class RecordAppointmentViewController: UIViewController {
 
 extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSource{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("didSelect \(dateFormatter.string(from: date))")
         self.date = "\(dateFormatter.string(from: date))"
+        self.auxDate = true
         self.downloadAvailableSchedules()
     }
     func minimumDate(for calendar: FSCalendar) -> Date {
@@ -184,6 +197,16 @@ extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSou
         
         return maxDate!
     }
+    func maxHour(for calendar: FSCalendar) -> Date {
+        let calendarDate = Calendar.current.dateComponents([.hour], from: calendar.today!)
+        
+        var maxAppointmentHour = DateComponents()
+        maxAppointmentHour.hour = calendarDate.hour!
+
+        let maxDate = Calendar(identifier: Calendar.Identifier.gregorian).date(from: maxAppointmentHour)
+        
+        return maxDate!
+    }
     
 }
 
@@ -196,10 +219,18 @@ extension RecordAppointmentViewController: UIPickerViewDelegate, UIPickerViewDat
         return self.availableSchedules.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.availableSchedules.sorted()[row]
+        var auxMsg:String = ""
+        if self.availableSchedules.sorted(by: >)[row] == "Selecciona una opción" {
+            auxMsg = ""
+        }else{
+            auxMsg = ":00 hrs"
+        }
+        return "\(self.availableSchedules.sorted(by: >)[row])\(auxMsg)"
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.time = self.availableSchedules.sorted()[row] as String
+        let str = self.availableSchedules.sorted(by: >)[row] as String
+        let index:String.Index = str.index(str.startIndex, offsetBy: 2)
+        self.time = str.substring(to: index)
     }
     
     
