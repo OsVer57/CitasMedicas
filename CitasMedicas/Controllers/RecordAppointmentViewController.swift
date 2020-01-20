@@ -96,9 +96,8 @@ class RecordAppointmentViewController: UIViewController {
     }
     
     @IBAction func recordAppointment(_ sender: Any) {
-        guard let doctorName = lblName.text else { return }
-        guard let doctorSpecialism = lblSpecialism.text else { return }
-        guard let professionalID = lblProfessionalID.text else { return }
+        guard let auxSelectedDoctor = selectedDoctor else { return }
+        
         guard auxDate != false else {
             self.createAlert(title: "ERROR", message: "Por favor seleccione una fecha en el calendario para poder agendar la cita.", messageBtn: "OK")
             return
@@ -114,7 +113,7 @@ class RecordAppointmentViewController: UIViewController {
         }
         
        
-        let obj = Appointment(date: date, time: auxTime, doctorName: doctorName, doctorSpecialism: doctorSpecialism, professionalID: professionalID)
+        let obj = Appointment(date: date, time: auxTime, doctorName: auxSelectedDoctor.name, doctorSpecialism: auxSelectedDoctor.specialism, professionalID: auxSelectedDoctor.professionalID)
         print(obj)
         
         self.showActivityIndicatory(uiView: self.view)
@@ -158,12 +157,12 @@ class RecordAppointmentViewController: UIViewController {
         
         let entity = NSEntityDescription.entity(forEntityName: "MedicalAppointment", in: managedContext)!
         let managedObject = NSManagedObject(entity: entity, insertInto: managedContext)
-        guard let doctorName = lblName.text else { return }
-        guard let doctorSpecialism = lblSpecialism.text else { return }
+        
+        guard let auxSelectedDoctor = selectedDoctor else { return }
         
         managedObject.setValue(folio, forKeyPath: "folio")
-        managedObject.setValue(doctorName, forKeyPath: "doctorName")
-        managedObject.setValue(doctorSpecialism, forKeyPath: "doctorSpecialism")
+        managedObject.setValue(auxSelectedDoctor.name, forKeyPath: "doctorName")
+        managedObject.setValue(auxSelectedDoctor.specialism, forKeyPath: "doctorSpecialism")
         managedObject.setValue(date, forKeyPath: "date")
         managedObject.setValue(time, forKeyPath: "time")
         
@@ -229,7 +228,9 @@ extension RecordAppointmentViewController: UIPickerViewDelegate, UIPickerViewDat
         return "\(self.availableSchedules.sorted(by: >)[row])\(auxMsg)"
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.time = self.availableSchedules.sorted(by: >)[row] as String
+        let str = self.availableSchedules.sorted(by: >)[row] as String
+        let index:String.Index = str.index(str.startIndex, offsetBy: 2)
+        self.time = str.substring(to: index)
     }
     
     

@@ -16,7 +16,7 @@ struct Constants {
         static let defaultColor = UIColor(red: 79/255, green: 195/255, blue: 247/255, alpha: 1)
     }
     struct Strings {
-        static let URL_BASE:String = "http://10.95.71.16:9090/agendaMedica/"
+        static let URL_BASE:String = "http://167.172.136.5:8080/AgendaMedica/agendaMedica/"
         static let SCHEDULES:Set<String> = Set(["10", "12", "15"])
         static let BIRTH_ENTITY:[String] = ["Selecciona una opción","Aguascalientes",
         "Baja California",
