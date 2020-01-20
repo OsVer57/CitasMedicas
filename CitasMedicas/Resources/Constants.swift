@@ -175,7 +175,7 @@ extension UIViewController{
     func showActivityIndicatory(uiView: UIView) {
         container.frame = uiView.frame
         container.center = uiView.center
-        container.backgroundColor = UIColor(red: 175/255  , green: 182/255, blue: 184/255, alpha: 1)
+        container.backgroundColor = UIColor(red: 175/255  , green: 182/255, blue: 184/255, alpha: 0.6)
 
         loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         loadingView.center = uiView.center
