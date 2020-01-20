@@ -173,26 +173,35 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre Médico" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-TS-SiK">
-                                                    <rect key="frame" x="95" y="18" width="123" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="95" y="18" width="109.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Especialidad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pH8-k8-T47">
-                                                    <rect key="frame" x="95" y="47" width="86" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <rect key="frame" x="95" y="49" width="75.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forward" translatesAutoresizingMaskIntoConstraints="NO" id="MQw-nh-BJd">
+                                                    <rect key="frame" x="246" y="34" width="27" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27" id="AAL-KD-AeN"/>
+                                                        <constraint firstAttribute="width" constant="27" id="oqk-Wd-IaR"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ZlD-TS-SiK" firstAttribute="top" secondItem="IHv-RK-B7f" secondAttribute="topMargin" constant="7" id="0f8-hp-hB8"/>
                                                 <constraint firstAttribute="bottom" secondItem="pH8-k8-T47" secondAttribute="bottom" constant="30" id="3OD-SJ-ubv"/>
-                                                <constraint firstItem="pH8-k8-T47" firstAttribute="top" secondItem="ZlD-TS-SiK" secondAttribute="bottom" constant="8" id="J0V-FV-aS7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MQw-nh-BJd" secondAttribute="bottom" constant="23" id="4QE-8t-nfj"/>
                                                 <constraint firstItem="pH8-k8-T47" firstAttribute="leading" secondItem="tTk-fb-CJg" secondAttribute="trailing" constant="8" id="Ldy-E0-zWx"/>
-                                                <constraint firstItem="ZlD-TS-SiK" firstAttribute="leading" secondItem="tTk-fb-CJg" secondAttribute="trailing" constant="8" id="UYh-Zk-HLn"/>
+                                                <constraint firstItem="MQw-nh-BJd" firstAttribute="trailing" secondItem="IHv-RK-B7f" secondAttribute="trailingMargin" id="PYe-29-oUS"/>
+                                                <constraint firstItem="ZlD-TS-SiK" firstAttribute="top" secondItem="IHv-RK-B7f" secondAttribute="topMargin" constant="7" id="lSt-Ok-9yf"/>
                                                 <constraint firstItem="tTk-fb-CJg" firstAttribute="centerY" secondItem="IHv-RK-B7f" secondAttribute="centerY" id="nsa-CT-H0T"/>
+                                                <constraint firstItem="ZlD-TS-SiK" firstAttribute="leading" secondItem="tTk-fb-CJg" secondAttribute="trailing" constant="8" id="oJ4-4m-tlT"/>
                                                 <constraint firstItem="tTk-fb-CJg" firstAttribute="leading" secondItem="IHv-RK-B7f" secondAttribute="leadingMargin" id="ulg-6W-BY7"/>
+                                                <constraint firstItem="MQw-nh-BJd" firstAttribute="top" secondItem="IHv-RK-B7f" secondAttribute="topMargin" constant="23" id="zvf-v9-yBL"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -224,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qe2-Fx-ULC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1088" y="900"/>
+            <point key="canvasLocation" x="1087.5" y="900"/>
         </scene>
         <!--Mis Citas-->
         <scene sceneID="JQI-SK-xTP">
@@ -439,7 +448,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <items>
                                                     <navigationItem title="Registro" id="3sb-Tq-e8l">
-                                                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="LXu-hL-Lln">
+                                                        <barButtonItem key="leftBarButtonItem" image="back" id="LXu-hL-Lln">
                                                             <connections>
                                                                 <segue destination="BYZ-38-t0r" kind="show" id="NYy-J1-QGD"/>
                                                             </connections>
@@ -708,7 +717,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <items>
                                                     <navigationItem title="Citas" id="BT7-gS-W0U">
-                                                        <barButtonItem key="leftBarButtonItem" title="Item" image="arrow.left" catalog="system" id="0qy-z0-UmE">
+                                                        <barButtonItem key="leftBarButtonItem" title="Item" image="back" id="0qy-z0-UmE">
                                                             <connections>
                                                                 <segue destination="yBc-fg-0uX" kind="show" id="Tmy-0e-tEU"/>
                                                             </connections>
@@ -1006,11 +1015,12 @@
         <image name="appointment" width="256" height="256"/>
         <image name="archivebox" catalog="system" width="64" height="52"/>
         <image name="archivebox.fill" catalog="system" width="64" height="52"/>
-        <image name="arrow.left" catalog="system" width="64" height="48"/>
+        <image name="back" width="230" height="320"/>
         <image name="defaultIdentificacion" width="279" height="277"/>
         <image name="doctor" width="512" height="512"/>
         <image name="editUser" width="256" height="256"/>
         <image name="eye.slash" catalog="system" width="64" height="42"/>
+        <image name="forward" width="1080" height="1504"/>
         <image name="house" catalog="system" width="64" height="54"/>
         <image name="house.fill" catalog="system" width="64" height="52"/>
         <image name="logo" width="1080" height="1505"/>
