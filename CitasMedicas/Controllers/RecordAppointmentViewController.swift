@@ -45,7 +45,6 @@ class RecordAppointmentViewController: UIViewController {
         self.lblLocation.text = "Ubicación: \(auxSelectedDoctor.location)"
         
         self.dateFormatter.dateFormat = "dd/MM/yyyy"
-        print("today \(dateFormatter.string(from: self.calendar.today!))")
         self.date = "\(dateFormatter.string(from: self.calendar.today!))"
         
         self.downloadAvailableSchedules()
@@ -54,12 +53,13 @@ class RecordAppointmentViewController: UIViewController {
     
     // Función para obtener la lista de horarios disponibles de la base de datos.
     func downloadAvailableSchedules(){
-        guard let professionalID = lblProfessionalID.text else { return }
+        guard let auxSelectedDoctor = selectedDoctor else { return }
+        self.availableSchedules = []
         
         // Se muestra el indicador de actividades
         self.showActivityIndicatory(uiView: self.view)
         // Se ejecuta la función del consumo de sericio
-        getAvailableSchedules(professionalID: professionalID, date: self.date , callback: { result, busySchedules in
+        getAvailableSchedules(professionalID: auxSelectedDoctor.professionalID, date: self.date , callback: { result, busySchedules in
             print(result)
             print(busySchedules)
             DispatchQueue.main.async {
@@ -177,7 +177,9 @@ class RecordAppointmentViewController: UIViewController {
 
 extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSource{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        self.dateFormatter.dateFormat = "dd/MM/yyyy"
         self.date = "\(dateFormatter.string(from: date))"
+        print("\(self.date)")
         self.auxDate = true
         self.downloadAvailableSchedules()
     }
@@ -197,17 +199,6 @@ extension RecordAppointmentViewController: FSCalendarDelegate, FSCalendarDataSou
         
         return maxDate!
     }
-    func maxHour(for calendar: FSCalendar) -> Date {
-        let calendarDate = Calendar.current.dateComponents([.hour], from: calendar.today!)
-        
-        var maxAppointmentHour = DateComponents()
-        maxAppointmentHour.hour = calendarDate.hour!
-
-        let maxDate = Calendar(identifier: Calendar.Identifier.gregorian).date(from: maxAppointmentHour)
-        
-        return maxDate!
-    }
-    
 }
 
 extension RecordAppointmentViewController: UIPickerViewDelegate, UIPickerViewDataSource{
